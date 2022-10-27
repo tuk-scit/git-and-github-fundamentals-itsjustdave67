@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Top G Auctions</title>
+        <link rel="icon" type="image/x-icon" href="/assets/auction.png" sizes="16x16 32x32">
+
+        <link rel="stylesheet" href="Top G Auctions.css">
+        
+    </head>
+
+    <body>
+        <section class="Login_and_Registration">
+            <img class="bg" src="./assets/Andrew-Tate-Poster-Top-G.jpg" alt="where is your bugatti image background">
+            <h1 class="LRmain-title title">Top G Auctions</h1>
+
+            <div class="LR buttons-container">
+                <a href="" class="Login-btn btn">Login</a>
+                <a href="" class="Register-btn btn">Register</a>
+            </div> 
+            
+            <div id="Login_form_container" class="Login_form_container">
+                <div action="submit" class="Login_form">
+                    <h2 class="form_title">Login</h2>
+
+                    <div class="uname-con">
+                    <p class="uemail form-label">Email:</p>
+                    <input type="email" id="login-email" class="temail" placeholder="Enter username"/>
+                    </div>
+
+                    <div class="pwd-con">
+                    <p class="pwd form-label">Password:</p>
+                    <input type="password" id="login-pwd" class="tpwd" placeholder="Enter password"/>
+                    </div>
+
+                    <div class="Log-btn-con">
+                        <button id="Log-btn" class="Log-btn">Log in</button>
+                    </div>
+                    <button id="reg-btn" class="create-btn">don't have an account? REGISTER</button>
+                </div>
+               
+            </div>
+
+            <div id="Registration_form_container" class="Registration_form_container">
+                <div class="Registration_form">
+                    <h2 class="form_title">Registration</h2>
+
+                    <div class="uname-con">
+                        <p class="uname form-label">Username:</p>
+                        <input id="uname" class="tuname" placeholder="Enter Username"/>
+                    </div>
+
+                    <div class="email-con">
+                        <p class="email form-label">Email:</p>
+                        <input id="reg-email" class="temail" placeholder="Enter Email"/>
+                    </div>
+
+                    <div class="pwd-con">
+                        <p class="pwd form-label">Password:</p>
+                        <input type="password" id="reg-pwd" class="tpwd" placeholder="Enter Password"/>
+                    </div>
+
+                    <div class="cpwd-con">
+                        <p class="xpwd form-label">Confirm:</p>
+                        <input type="password" id="reg-cpwd" class="tcpwd" placeholder="Confirm Password"/>
+                        <button id="togglePassword1" class="pwd-btn">
+                            <img class="pwd-btn-img" src="./assets/pwd-btn-img.png" alt="password reveal eye image">
+                        </button>
+                    </div>
+
+                    <div class="Reg-btn-con">
+                        <button id="Reg-btn" class="Reg-btn">Create Account</button>
+                    </div>
+
+                    <div id="error-con" class="error-con">
+                        <p id="pwd-error" class="pwd-error">
+                            The passwords entered do not match!
+                        </p>
+                    </div>
+                    <button id="Reg-login-btn" class="Reg-login-btn">have an account? LOGIN</button>
+
+                </div>
+            </div>
+
+            <div id="result-box">
+                <h3 id="result"></h3>
+            </div>
+        </section>
+        <script type="module" src="firebase.js"></script>
+        <script type="text/javascript" src="form.js"></script>
+    </body>
+
+    
+</html>
