@@ -14,11 +14,26 @@
     <body>
         <section class="Login_and_Registration">
             <img class="bg" src="./assets/Andrew-Tate-Poster-Top-G.jpg" alt="where is your bugatti image background">
-            <h1 class="LRmain-title title">Top G Auctions</h1>
-
+            <div class="dark-overlay"></div>
+            <div class="back-icon-con">
+                <button id="back-icon-btn" class="back-icon-btn">
+                    <img src="./assets/back-icon.png" alt="" class="back-icon-img">
+                </button>
+            </div>
+            <div id="LRmain-title-con" class="LRmain-title-con">
+                <h1 class="LRmain-title  title">Top G Auctions</h1>
+            </div>
+            <div id="LRsub-title-con" class="LRsub-title-con">
+                <h2 class="LRsub-title title">What color is your Bugatti?</h2>
+                <h3 class="LRsub-title2 title">Auction is a collector's second wife.</h3>
+            </div>
+            <div id="proceed-btn-con" class="proceed-btn-con">
+                <a class="proceed-btn btn" href="./Top_G_Auctions.html">Proceed.</a>
+            </div>
+            
             <div class="LR buttons-container">
-                <a href="" class="Login-btn btn">Login</a>
-                <a href="" class="Register-btn btn">Register</a>
+                <button id="Login-btn" class="Login-btn btn">Login</button>
+                <button id="Register-btn" class="Register-btn btn">Register</button>
             </div> 
             
             <div id="Login_form_container" class="Login_form_container">
@@ -64,10 +79,11 @@
 
                     <div class="cpwd-con">
                         <p class="xpwd form-label">Confirm:</p>
-                        <input type="password" id="reg-cpwd" class="tcpwd" placeholder="Confirm Password"/>
                         <button id="togglePassword1" class="pwd-btn">
                             <img class="pwd-btn-img" src="./assets/pwd-btn-img.png" alt="password reveal eye image">
                         </button>
+                        <input type="password" id="reg-cpwd" class="tcpwd" placeholder="Confirm Password"/>
+                        
                     </div>
 
                     <div class="Reg-btn-con">
