@@ -1,16 +1,20 @@
 
+
+
+
 const proceed_btn_con = document.getElementById("proceed-btn-con");
 const LRsub_title_con = document.getElementById("LRsub-title-con");
 const LRmain_title_con = document.getElementById("LRmain-title-con");
+const LRmain_title = document.getElementById("LRmain-title");
 const Registration_form_container = document.getElementById("Registration_form_container");
 const Login_form_container = document.getElementById("Login_form_container");
 const Register_btn = document.getElementById("Register-btn");
 const Login_btn = document.getElementById("Login-btn");
 const back_icon_btn =  document.getElementById("back-icon-btn");
 
-
 Register_btn.addEventListener("click", function() {
-    LRmain_title_con.className += " LRmain-title2-con";
+    document.documentElement.style.setProperty('--ff-maintitle', 'Bahianita');
+    LRmain_title_con.style.marginBottom = "25px";
     LRsub_title_con.style.display = "none";
     proceed_btn_con.style.display = "none";
     Login_btn.style.display = "none";
@@ -19,7 +23,8 @@ Register_btn.addEventListener("click", function() {
 });
 
 Login_btn.addEventListener("click", function() {
-    LRmain_title_con.className += " LRmain-title2-con";
+    document.documentElement.style.setProperty('--ff-maintitle', 'Bahianita');
+    LRmain_title_con.style.marginBottom = "25px";
     LRsub_title_con.style.display = "none";
     proceed_btn_con.style.display = "none";
     Register_btn.style.display = "none";
