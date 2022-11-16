@@ -53,7 +53,7 @@ document.getElementById("Log-btn").addEventListener("click", function () {
       document.getElementById("result-box").style.display = "inline";
       document.getElementById("Login_form_container").style.display = "none";
       document.getElementById("result").innerHTML =
-        "Welcome Back!<br>" + loginEmail + " was Login Successfully";
+        "Welcome Back!<br>" + loginEmail + " was logged in Successfully";
         setTimeout(function() {
           window.location.href = "http://127.0.0.1:5500/Top_G_Auctions.html";
         },3000);
