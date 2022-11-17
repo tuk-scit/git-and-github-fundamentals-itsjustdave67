@@ -11,12 +11,13 @@
 </head>
 <body>
     <div class="Top_G_Auctions">
+        <img class="bg2" src="./assets/Andrew-Tate-Poster-Top-G3.jpg" alt="where is your bugatti image background">
         <div class="TGA-header-container">
             <div class="logo-container">
                 <img src="./assets/auction.png" alt="" class="logo">
             </div>
             <div class="bar-btn-con">
-                <button class="menu-btn">
+                <button id="menu-btn" class="menu-btn">
                     <img src="./assets/menu-icon.png" alt="" class="menu-img">
                 </button>
                 <div class="search-btn-con">
@@ -42,19 +43,119 @@
                 </div>
             </div>
         </div>
-
         <div class="TGA-body-container">
-            <div class="TGAmenu-container">
-                <a href="" class="TGAmenu-item1">Add Product for Auction</a>
-                <a href="" class="TGAmenu-item2">Filter items</a>
-                <a href="" class="TGAmenu-item3">Log out</a>
+            <div id="TGAmenu-container" class="TGAmenu-container">
+                <a href="" class="TGAmenu-item TGAmenu-item1">Add Product for Auction</a>
+                <a href="" class="TGAmenu-item TGAmenu-item2">Filter items</a>
+                <a href="" class="TGAmenu-item TGAmenu-item3">Filter items</a>
+                <a href="" class="TGAmenu-item TGAmenu-item4">Filter items</a>
+                <a href="" class="TGAmenu-item TGAmenu-item5">Log out</a>
             </div>
 
             <div class="Items-table-container">
-
+                <table class="products-table">
+                    <tr class="product-head-row">
+                        <th class="table-head">Image</th>
+                        <th class="table-head">Category</th>
+                        <th class="table-head">Product Name</th>
+                        <th class="table-head">Min-Bid</th>
+                        <th class="table-head">Bid-Deadline</th>
+                    </tr>
+                    <tr class="product-row">
+                        <td class="product-img-con">
+                            <img class="product-img" src="./assets/Bugatti_Chiron.jpg" alt="" >
+                        </td>
+                        <td class="product-category">
+                            <p>Sportscar</p>
+                        </td>
+                        <td class="product-name">
+                            <p>The Bugatti Chiron</p>
+                        </td>
+                        <td class="product-min-bid">
+                            <p>$ 3,700,000</p>
+                        </td>
+                        <td class="product-bid-deadline">
+                            <p>27/02/2023</p>
+                            <button class="view-product-btn btn">View.</button>
+                        </td>
+                    </tr>
+                    <tr class="product-row">
+                        <td class="product-img-con">
+                            <img class="product-img" src="./assets/Bugatti_Chiron.jpg" alt="" >
+                        </td>
+                        <td class="product-category">
+                            <p>Sportscar</p>
+                        </td>
+                        <td class="product-name">
+                            <p>The Bugatti Chiron</p>
+                        </td>
+                        <td class="product-min-bid">
+                            <p>$ 3,700,000</p>
+                        </td>
+                        <td class="product-bid-deadline">
+                            <p>27/02/2023</p>
+                            <button class="view-product-btn btn">View.</button>
+                        </td>
+                    </tr>
+                    <tr class="product-row">
+                        <td class="product-img-con">
+                            <img class="product-img" src="./assets/Bugatti_Chiron.jpg" alt="" >
+                        </td>
+                        <td class="product-category">
+                            <p>Sportscar</p>
+                        </td>
+                        <td class="product-name">
+                            <p>The Bugatti Chiron</p>
+                        </td>
+                        <td class="product-min-bid">
+                            <p>$ 3,700,000</p>
+                        </td>
+                        <td class="product-bid-deadline">
+                            <p>27/02/2023</p>
+                            <button class="view-product-btn btn">View.</button>
+                        </td>
+                    </tr>
+                    <tr class="product-row">
+                        <td class="product-img-con">
+                            <img class="product-img" src="./assets/Bugatti_Chiron.jpg" alt="" >
+                        </td>
+                        <td class="product-category">
+                            <p>Sportscar</p>
+                        </td>
+                        <td class="product-name">
+                            <p>The Bugatti Chiron</p>
+                        </td>
+                        <td class="product-min-bid">
+                            <p>$ 3,700,000</p>
+                        </td>
+                        <td class="product-bid-deadline">
+                            <p>27/02/2023</p>
+                            <button class="view-product-btn btn">View.</button>
+                        </td>
+                    </tr>
+                    <tr class="product-row">
+                        <td class="product-img-con">
+                            <img class="product-img" src="./assets/Bugatti_Chiron.jpg" alt="" >
+                        </td>
+                        <td class="product-category">
+                            <p>Sportscar</p>
+                        </td>
+                        <td class="product-name">
+                            <p>The Bugatti Chiron</p>
+                        </td>
+                        <td class="product-min-bid">
+                            <p>$ 3,700,000</p>
+                        </td>
+                        <td class="product-bid-deadline">
+                            <p>27/02/2023</p>
+                            <button class="view-product-btn btn">View.</button>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
-
     </div>
+    <script type="module" src="firebase.js"></script>
+    <script type="text/javascript" src="TGA.js"></script>
 </body>
 </html>

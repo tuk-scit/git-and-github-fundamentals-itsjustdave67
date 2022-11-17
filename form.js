@@ -12,6 +12,9 @@ const Register_btn = document.getElementById("Register-btn");
 const Login_btn = document.getElementById("Login-btn");
 const back_icon_btn =  document.getElementById("back-icon-btn");
 
+
+
+
 Register_btn.addEventListener("click", function() {
     document.documentElement.style.setProperty('--ff-maintitle', 'Bahianita');
     LRmain_title_con.style.marginBottom = "25px";
@@ -43,4 +46,6 @@ document.getElementById("Reg-login-btn").addEventListener("click",function() {
     document.getElementById("Registration_form_container").style.display="none";
     document.getElementById("Login_form_container").style.display="inline-block";
 });
+
+
 

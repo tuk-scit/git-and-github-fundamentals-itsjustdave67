@@ -1,9 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900;1200&family=Source+Code+Pro&family=Source+Sans+Pro&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&family=Water+Brush&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Shrikhand&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700&family=Shrikhand&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700&family=Bahianita&family=Shrikhand&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bahianita&family=Water+Brush&display=swap');
+
 
 /* :root {
 	font-size: calc(16px + (24 - 16)*(100vw - 320px)/(1920 - 320));
@@ -157,13 +158,17 @@ window {
   overflow: scroll;
 }
 body {
-  height: 100%;
+  position: relative;
+  height: 100vh;
   background-color: var(--main-dark-color);
+  overflow: hidden;
 }
 :root {
     --main-primary-color: #e95a2c;
     --main-secondary-color: #f6f6e9;
-    --main-mid-dark-color: #a5703b;
+    --main-light-color: #F6F6E9;
+    --main-dark-color: #F7B9A1;
+    --table-dark-color: #291B25;
 
     --fc-light: white;
     --fc-dark: black;
@@ -187,6 +192,20 @@ body {
   --fs-large: 1.8rem;
   --fs-xlarge: 3.5rem;
   --fs-xxlarge: 6rem;
+
+  --animate-delay: 0.9s;
+}
+::-webkit-scrollbar {
+  width: 1em;
+  border:  1px solid black ;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px var(--main-primary-color);
+  background-color: var(--table-dark-color);
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--main-primary-color);
+  border-radius: 4px;
 }
 .btn {
     text-align: center;
@@ -463,17 +482,35 @@ input {
 .Top_G_Auctions {
   position: relative;
   background-color: var(--main-color);
-  height: 100vh;
+  height: 100%;
   width: 100%;
   text-align: center;
 }
-.TGA-header-container {
+.bg2 {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    left: 0;
+}
+.TGA-body-container {
   position: relative;
+  display: flex;
   width: 100%;
-  height: auto;
+  height: 85%;
+  top: 15%;
+  overflow: hidden;
+  padding-bottom: 10px;
+}
+ /*#region TGA header */
+
+.TGA-header-container {
+  position: absolute;
+  width: 100%;
+  height: 15%;
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 2;
 }
 .logo-container {
   display: flex;
@@ -500,6 +537,8 @@ input {
   height: 65px;
   margin: 0;
   background: transparent;
+  cursor: pointer;
+  z-index: 3;
 }
 .profile-con {
   display: flex;
@@ -532,21 +571,18 @@ input {
   font-size: var(--fs-large);
   text-align: center;
 }
-.TGA-body-container {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  bottom: 0;
-}
-.TGAmenu-container {
+ /*#endregion TGA header */
+
+ /*#region TGAmenu-container */
+ .TGAmenu-container {
   position: relative;
   height: 100%;
-  width: 30%;
+  width: 20%;
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
   bottom: 0;
 }
-.TGAmenu-item1, .TGAmenu-item2, .TGAmenu-item3 {
+.TGAmenu-item {
   text-align: center;
   text-decoration: none;
   font-family: var(--ff-primary);
@@ -558,17 +594,70 @@ input {
   justify-content: center;
   align-items: center;
 }
-.TGAmenu-item1, .TGAmenu-item3 {
+.TGAmenu-item1, .TGAmenu-item3, .TGAmenu-item5{
+  background-color: var(--main-light-color);
+}
+.TGAmenu-item2, .TGAmenu-item4 {
   background-color: var(--main-dark-color);
 }
-.TGAmenu-item2 {
-  background-color: var(--main-mid-dark-color);
-}
+ /*#endregion TGAmenu-container */
+ 
+ /*#region TGAtable-container */
 .Items-table-container {
   position: relative;
   width: 100%;
   height: 100%;
+  overflow-y: auto;
+  box-shadow: 2px 2px 15px 5px rgb(233, 90, 44);
 }
+.products-table {
+  position: relative;
+  width: 100%;
+  overflow: scroll;
+  border-spacing: 0;
+}
+.product-head-row {
+  background: var(--main-primary-color);
+  height: 20px;
+  color: var(--fc-light);
+  font-family: var(--ff-primary);
+  font-weight: var(--fw-small);
+}
+.product-img-con {
+  position: relative;
+  height: 150px;
+  width: 200px;
+}
+.product-img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.product-category {
+  color: var(--main-primary-color);
+}
+.product-name, .product-min-bid, .product-bid-deadline {
+  color: var(--fc-light)
+}
+.view-product-btn {
+  width: 70px;
+  margin: 0;
+  padding: 0;
+  font-size: var(--fs-normal);
+
+}
+tr.product-row:hover {
+  background: #70676d;
+}
+.product-row {
+  background: #291B25;
+} 
+
+
+ /*#endregion TGAbody-container */
+
+
+ 
 #result-box {
   display: none;
   position: absolute;
@@ -586,4 +675,3 @@ input {
 }
 
 /*#endregion Top_G_Auctions */
- 
