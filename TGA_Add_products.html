@@ -27,29 +27,34 @@
         <div class="add-products-input-con">
             <div class="add-products-small-con add-products-category-con">
                 <h4 class="add-products-small-title add-products-category-title">Category:</h4>
-                <input type="text" class="add-products-small-input add-products-category-input">
+                <input type="text" id="category" class="add-products-small-input add-products-category-input">
+            </div>
+            <div class="add-products-small-con add-products-product-name-con">
+                <h4 class="add-products-small-title add-products-product-name-title">Product name:</h4>
+                <input type="text" id="pname" class="add-products-small-input add-products-product-name-input">
             </div>
             <div class="add-products-small-con add-products-description-con">
                 <h4 class="add-products-small-title add-products-description-title">description:</h4>
-                <input type="text" class="add-products-small-input add-products-description-input">
+                <input type="text" id="description" class="add-products-small-input add-products-description-input">
             </div>
             <div class="add-products-small-con add-products-choose-file-img-con">
                 <h4 class="add-products-small-title add-products-choose-file-img-title">choose file img:</h4>
-                <input type="text" class="add-products-small-input add-products-choose-file-img-input">
+                <input type="text" id="img_file" class="add-products-small-input add-products-choose-file-img-input">
             </div>
             <div class="add-products-small-con add-products-minimum-bid-con">
                 <h4 class="add-products-small-title add-products-minimum-bid-title">minimum bid:</h4>
-                <input type="text" class="add-products-small-input add-products-minimum-bid-input">
+                <input type="text" id="min-bid" class="add-products-small-input add-products-minimum-bid-input">
             </div>
             <div class="add-products-small-con add-products-bid-deadline-con">
                 <h4 class="add-products-small-title add-products-bid-deadline-title">bid deadline:</h4>
-                <input type="text" class="add-products-small-input add-products-bid-deadline-input">
+                <input type="text" id="bid-deadline" class="add-products-small-input add-products-bid-deadline-input">
             </div>
         </div>
 
         <div class="add-products-submit-btn-con">
-            <button class="add-products-submit-btn btn">Submit</button>
+            <button id="submit-btn" class="add-products-submit-btn btn">Submit</button>
         </div>
     </div>
+    <script type="module" src="add-products-firebase.js"></script>
 </body>
 </html>

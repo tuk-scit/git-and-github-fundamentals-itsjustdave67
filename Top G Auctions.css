@@ -582,6 +582,7 @@ input {
   font-size: var(--fs-xlarge);
   text-align: center;
   font-family: var(--ff-maintitle-2);
+   white-space: nowrap;
 }
 .TGAsub-title {
   position: relative;
@@ -654,7 +655,7 @@ input {
 .product-category {
   color: var(--main-primary-color);
 }
-.product-name, .product-min-bid, .product-bid-deadline {
+.product-name, .product-min-bid, .product-bid-deadline, .product-id {
   color: var(--fc-light)
 }
 .view-product-btn {
