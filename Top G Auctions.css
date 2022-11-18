@@ -4,7 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700&family=Shrikhand&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700&family=Bahianita&family=Shrikhand&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bahianita&family=Water+Brush&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap');
 
 /* :root {
 	font-size: calc(16px + (24 - 16)*(100vw - 320px)/(1920 - 320));
@@ -171,6 +171,8 @@ body {
     --table-dark-color: #291B25;
 
     --fc-light: white;
+    --fc-light-dark: #F6E7D8;
+    --fc-light-darker: #E2B98B;
     --fc-dark: black;
     --fc-error: red;
 
@@ -180,6 +182,7 @@ body {
   --ff-maintitle-2: 'Water Brush', cursive;
   --ff-subtitle: 'Abhaya Libre', serif;
   --ff-secondary: "Source Code Pro", monospace;
+  --ff-poppins-bold: 'Poppins', sans-serif;
 
    /* font weights */
   --fw-small: 100;
@@ -475,6 +478,21 @@ input {
   font-size: 1.1rem;
   float: right;
 }
+#result-box {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14pt;
+  color: var(--main-primary-color);
+  background: var(--main-secondary-color);
+  padding: 1rem;
+  text-align: center;
+  border-radius: 15px;
+  z-index: 4;
+
+}
 /*#endregion Login_and_Registration */
 
 /*#region Top_G_Auctions */
@@ -652,26 +670,247 @@ tr.product-row:hover {
 .product-row {
   background: #291B25;
 } 
-
-
  /*#endregion TGAbody-container */
 
-
- 
-#result-box {
-  display: none;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 14pt;
-  color: var(--main-primary-color);
-  background: var(--main-secondary-color);
-  padding: 1rem;
-  text-align: center;
-  border-radius: 15px;
-  z-index: 4;
-
-}
-
 /*#endregion Top_G_Auctions */
+
+/*#region TGA-Products-description */
+.products-description-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--table-dark-color);
+}
+  /*#region TGA-products-description-header */
+  .TGA-products-description-header-con {
+    position: relative;
+    text-align: center;
+    width: 100%;
+    max-height: 10%;
+  }
+  .back-icon-btn2 {
+    position: relative;
+    float: left;
+  }
+  .TGA-product-title {
+    position: relative;
+    font-family: var(--ff-primary);
+    font-weight: var(--fw-normal);
+    font-size: var(--fs-large);
+    color: var(--fc-light-dark);
+    text-transform: capitalize;
+  }
+  /*#endregion TGA-products-description-header */
+
+  /*#region  TGA-products-description-details*/
+  .products-details-con {
+    position: relative;
+    width: 100%;
+    display: flex;
+    height: 75%;
+  }
+  .products-details-description-con {
+    position: relative;
+    width: 60%;
+    display: grid;
+    row-gap: 7px;
+    padding: 7px;
+  }
+  .products-small-details-con {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .products-description {
+    align-items: flex-start;
+  }
+  .products-small-title {
+    position: relative;
+    width: 40%;
+    font-family: var(--ff-poppins-bold);
+    font-weight: var(--fw-xlarge);
+    font-size: var(--fs-large);
+    color: var(--fc-light-dark);
+  }
+  .products-small-data {
+    position: relative;
+    width: 60%;
+    font-family: "canvas-sans-serif", "sans-serif";
+    color: var(--fc-light-darker);
+    font-size: var(--fs-normal);
+    font-weight: var(--fw-normal);
+  }
+  .uploaded-by-small-con {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .email-btn {
+    position: relative;
+    color: var(--fc-dark);
+    background-color: var(--main-primary-color);
+    font-family: var(--ff-primary);
+    font-size: var(--fs-normal);
+    font-weight: var(--fw-normal);
+    padding: 3px 3px 3px 3px;
+    margin: 0;
+    margin-left: 1.5em;
+  }
+  .email-btn:hover {
+    color: var(--main-primary-color);
+    background-color: var(--main-secondary-color);
+  }
+  .products-details-image-con {
+    position: relative;
+    width: 40%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .products-details-img {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+  /*#endregion  TGA-products-description-details*/
+
+  /*#region  TGA-products-description-bid-con*/
+  .products-place-bid-con {
+    position: relative;
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .products-place-bid-title {
+    font-family: var(--ff-poppins-bold);
+    font-weight: var(--fw-xlarge);
+    font-size: var(--fs-large);
+    color: var(--fc-light-dark);
+  }
+  .products-place-bid-input {
+    width: 300px;
+    border-radius: 3px;
+  }
+  /*#endregion  TGA-products-description-bid-con*/
+
+  /*#region  TGA-products-description-profile-con*/
+  .products-profile-con {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    display: grid;
+    font-size: var(--fs-normal);
+  }
+  .products.profile-icon-con {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .products.profile-icon-con img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  /*#endregion  TGA-products-description-profile-con*/
+
+/*#endregion TGA-products-description */
+
+/*#region TGA-Add-Products */
+.TGA-Add-Products {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: url(./assets/Andrew-tate-Poster-Top-G3.jpg);
+  background-size: cover;
+  padding: 15px;
+}
+  /*#region TGA-Add-Products-header */
+  .TGA-Add-Products-header {
+    position: relative;
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .add-products-title {
+    position: relative;
+    width: 100%;
+    font-family: var(--ff-poppins-bold);
+    font-weight: var(--fw-xlarge);
+    font-size: var(--fs-xlarge);
+    text-align: center;
+    text-transform: capitalize;
+    color: var(--fc-light-dark);
+  }
+  div.TGA-Add-Products.profile-name {
+    color: var(--fc-light-dark);
+  }
+  div.TGA-Add-Products.profile-email {
+    color: var(--fc-light-dark);
+  }
+  /*#endregion TGA-Add-Products-header */
+  
+  /*#region TGA-Add-Products-input-con */
+  .add-products-input-con {
+    position: relative;
+    width: 70%;
+    height: 80%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+  }
+  .add-products-small-con {
+    position: relative;
+    width: 100%;
+    display: flex
+  }
+  .add-products-small-title {
+    position: relative;
+    width: 30%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    font-family: var(--ff-poppins-bold);
+    font-weight: var(--fw-xlarge);
+    font-size: var(--fs-large);
+    color: var(--fc-light-dark);
+  }
+  .add-products-small-input {
+    position: relative;
+    width: 70%;
+    height: 50%;
+    border-radius: 3px;
+  }
+  /*#endregion TGA-Add-Products-input-con */
+
+  /*#region TGA-Add-Products-submit-btn-con */
+  .add-products-submit-btn-con {
+    position: relative;
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .add-products-submit-btn {
+    background: var(--main-primary-color);
+    color: var(--fc-light);
+    padding: 3px 5px;
+    margin: 0;
+    margin-top: 1em;
+  }
+  .add-products-submit-btn:hover {
+    background: var(--main-secondary-color);
+    color: var(--main-primary-color);
+  }
+  /*#endregion TGA-Add-Products-submit-btn-con */
+
+/*#endregion TGA-Add-Products */
+
+
+
