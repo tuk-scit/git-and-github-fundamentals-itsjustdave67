@@ -39,7 +39,17 @@
             </div>
             <div class="add-products-small-con add-products-choose-file-img-con">
                 <h4 class="add-products-small-title add-products-choose-file-img-title">choose file img:</h4>
-                <input type="text" id="img_file" class="add-products-small-input add-products-choose-file-img-input">
+                <div class="img-file-con">
+                    <div class="img-input-con">
+                        <input type="text" id="img_file" class="add-products-small-input add-products-choose-file-img-input">
+                        <label id="extname" class="extname"></label>
+                    </div>
+                    <div class="img-display-con">
+                        <button class="selbtn btn" id="selbtn">Select Image.</button>
+                        <label id="proglab" class="extname proglab">hello</label>
+                        <img id="myimg" alt="" class="myimg">
+                    </div>
+                </div>
             </div>
             <div class="add-products-small-con add-products-minimum-bid-con">
                 <h4 class="add-products-small-title add-products-minimum-bid-title">minimum bid:</h4>
@@ -49,9 +59,6 @@
                 <h4 class="add-products-small-title add-products-bid-deadline-title">bid deadline:</h4>
                 <input type="text" id="bid-deadline" class="add-products-small-input add-products-bid-deadline-input">
             </div>
-        </div>
-
-        <div class="add-products-submit-btn-con">
             <button id="submit-btn" class="add-products-submit-btn btn">Submit</button>
         </div>
     </div>

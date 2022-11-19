@@ -8,7 +8,12 @@ import {
   getDatabase, ref, 
   set, get, child, 
   update, remove
-} from "https://www.gstatic.com/firebasejs/9.13.0/firebase-database.js"
+} from "https://www.gstatic.com/firebasejs/9.13.0/firebase-database.js";
+import { 
+  getStorage, ref as sref,
+  uploadBytesResumable,
+  getDownloadURL
+} from "https://www.gstatic.com/firebasejs/9.13.0/firebase-storage.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCb-eEfNFF6mWl1P-d8_xZDIPqCswJgnsM",
@@ -48,11 +53,11 @@ function getProducts () {
                     var category = snapshot.val().category
                     var pname = snapshot.val().name
                     var description = snapshot.val().description
-                    var image_file = snapshot.val().image_file
+                    var image_URL = snapshot.val().image_URL
                     var minimum_bid = snapshot.val().minimum_bid
                     var bid_deadline = snapshot.val().bid_deadline
 
-                    fillTable(p_id,category,pname,description,image_file,minimum_bid,bid_deadline)
+                    fillTable(p_id,category,pname,description,image_URL,minimum_bid,bid_deadline)
                 });
            }
         }
@@ -62,24 +67,26 @@ function getProducts () {
     }); 
 }
 
-function fillTable (p_id,category,pname,description,image_file,minimum_bid,bid_deadline) {
+
+
+function fillTable (p_id,category,pname,description,image_URL,minimum_bid,bid_deadline) {
     var tbody = document.getElementById("tbody");
     var trow = document.createElement("tr");
     trow.className = 'product-row';
 
     var p0 = document.createElement("p");
+    var img1 = document.createElement("img");
     var p1 = document.createElement("p");
     var p2 = document.createElement("p");
     var p3 = document.createElement("p");
     var p4 = document.createElement("p");
-    var p5 = document.createElement("p");
 
     p0.innerHTML = p_id;
+    img1.src = image_URL;
     p1.innerHTML = category;
     p2.innerHTML = pname;
-    p3.innerHTML = image_file;
-    p4.innerHTML = minimum_bid;
-    p5.innerHTML = bid_deadline; 
+    p3.innerHTML = minimum_bid;
+    p4.innerHTML = bid_deadline; 
 
     var td0 = document.createElement("td");
     var td1 = document.createElement("td");
@@ -96,11 +103,11 @@ function fillTable (p_id,category,pname,description,image_file,minimum_bid,bid_d
     td5.className = 'product-bid-deadline';
 
     td0.appendChild(p0);
-    td1.appendChild(p1);
-    td2.appendChild(p2);
-    td3.appendChild(p3);
-    td4.appendChild(p4);
-    td5.appendChild(p5);
+    td1.appendChild(img1);
+    td2.appendChild(p1);
+    td3.appendChild(p2);
+    td4.appendChild(p3);
+    td5.appendChild(p4);
     
     trow.appendChild(td0);
     trow.appendChild(td1);
