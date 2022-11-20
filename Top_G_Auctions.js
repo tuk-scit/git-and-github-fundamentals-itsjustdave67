@@ -30,16 +30,14 @@ const db = getDatabase();
 
 const menu_btn = document.getElementById("menu-btn");
 const TGAmenu_container = document.getElementById("TGAmenu-container");
-const table_rows = document.querySelectorAll('tr');
+const profile_uname = document.getElementById("profile-uname");
+const profile_email = document.getElementById("profile-email");
+
 
 getProducts();
+getUserInfo();
 
-table_rows.forEach( table_row => {
-    table_row.addEventListener("click",()=> {
-        let target = table_row.children[0].value;
-        console.log(target);
-    });
-});
+
 
 function getProducts () {
     const dbref = ref(db);
@@ -48,7 +46,8 @@ function getProducts () {
         if(snapshot.val().Counter_id > 1) {
            var tableId = snapshot.val().Counter_id;
            for(var i=1; i<tableId; i++) {
-                get(child(dbref,"TheProducts/" + i)).then((snapshot)=>{
+                get(child(dbref,"TheProducts/" + i))
+                .then((snapshot)=>{
                     var p_id = snapshot.val().p_id
                     var category = snapshot.val().category
                     var pname = snapshot.val().name
@@ -58,7 +57,10 @@ function getProducts () {
                     var bid_deadline = snapshot.val().bid_deadline
 
                     fillTable(p_id,category,pname,description,image_URL,minimum_bid,bid_deadline)
-                });
+                }).catch(error => {
+                  var errorMessage = error.message;
+                  alert("No products retrievals: --- "+errorMessage);
+                })
            }
         }
         else {
@@ -67,7 +69,26 @@ function getProducts () {
     }); 
 }
 
+function getUserInfo () {
+  const dbref = ref(db);
+  const loginEmail = localStorage.getItem("loginEmail").replace(".","_");
 
+  get(child(dbref, "TheUsers/"+loginEmail))
+  .then((snapshot)=> {
+    var Username = snapshot.val().Username;
+    var Email = snapshot.val().Email;
+    fillProfile(Username,Email);
+  })
+  .catch(error => {
+    var errorMessage = error.message;
+    alert("Error no user retrievals: --- "+errorMessage);
+  })
+}
+
+function fillProfile (username, email) {
+  profile_uname.innerHTML = username;
+  profile_email.innerHTML = email;
+}
 
 function fillTable (p_id,category,pname,description,image_URL,minimum_bid,bid_deadline) {
     var tbody = document.getElementById("tbody");
@@ -117,6 +138,16 @@ function fillTable (p_id,category,pname,description,image_URL,minimum_bid,bid_de
     trow.appendChild(td5);
 
     tbody.appendChild(trow);
+
+    const table_rows = document.querySelectorAll('tr');
+    table_rows.forEach( table_row => {
+      table_row.addEventListener("click",()=> {
+          var target = table_row.children[0].children[0].innerHTML;
+          
+          localStorage.setItem('p_id',target);
+          window.location.href = "http://127.0.0.1:5500/TGA_products_description.html";
+      });
+    });
 
 }
 

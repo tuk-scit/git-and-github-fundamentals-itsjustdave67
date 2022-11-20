@@ -48,8 +48,12 @@ const input = document.getElementsByTagName("input");
 const myimg = document.getElementById("myimg");
 const extname = document.getElementById("extname");
 const selbtn = document.getElementById("selbtn");
+const profile_uname = document.getElementById("profile-uname");
+const profile_email = document.getElementById("profile-email");
 var imgURL = null;
 //#endregion
+
+getUserInfo ();
 
 //#region submit button functionality
 submit.addEventListener("click", () => {
@@ -157,7 +161,7 @@ function getProductId() {
       var currentCounterId = Number(snapshot.val());
       currentCounterId++;
 
-      set(ref(db, "Counter_id"), {
+      set(ref(db, "/"), {
         Counter_id: currentCounterId,
       });
     }
@@ -168,9 +172,10 @@ function getProductId() {
 //#region save details on realtime database
 function insertProductsDetails() {
   const dbref = ref(db);
+  var loginEmail = localStorage.getItem("loginEmail");
 
   get(child(dbref, "Counter_id")).then((snapshot) => {
-    var currentCounterId = snapshot.val().Counter_id;
+    var currentCounterId = snapshot.val();
     console.log(currentCounterId);
     var name = img_file.value;
     var extension = extname.value;
@@ -184,6 +189,7 @@ function insertProductsDetails() {
       image_URL: gettingDownloadURL(),
       minimum_bid: min_bid.value,
       bid_deadline: bid_deadline.value,
+      Uploaded_by_email: loginEmail
     })
       .then(() => {
         alert("data stored successfully!");
@@ -199,6 +205,28 @@ function insertProductsDetails() {
   });
 }
 //#endregion
+
+function getUserInfo () {
+  const dbref = ref(db);
+  const loginEmail = localStorage.getItem("loginEmail").replace(".","_");
+
+  get(child(dbref, "TheUsers/"+loginEmail))
+  .then((snapshot)=> {
+    var Username = snapshot.val().Username;
+    var Email = snapshot.val().Email;
+    fillProfile(Username,Email);
+  })
+  .catch(error => {
+    var errorMessage = error.message;
+    alert("Error no user retrievals: --- "+errorMessage);
+  })
+}
+
+function fillProfile (username, email) {
+  profile_uname.innerHTML = username;
+  profile_email.innerHTML = email;
+}
+
 
 // The CHIRON is the fastest, most powerful,
 // and exclusive production super sports car

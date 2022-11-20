@@ -12,9 +12,9 @@
       href="/assets/auction.png"
       sizes="16x16 32x32"
     />
-
     <link rel="stylesheet" href="Top G Auctions.css" />
   </head>
+
   <body>
     <div class="products-description-container">
 
@@ -23,39 +23,32 @@
           <img src="./assets/back-icon.png" alt="back icon" class="back-icon-img" />
         </button>
         <h1 id="TGA-product-title" class="TGA-product-title">
-          The Bugatti Chiron
         </h1>
       </div>
-
       <div class="products-details-con">
         <div class="products-details-description-con">
           
           <div class="products-small-details-con products-description">
             <h4 class="products-small-title description-title">Description:</h4>
-            <p class="products-small-data description-data">
-              The CHIRON is the fastest, most powerful, and exclusive production
-              super sports car in BUGATTI’s history. Its sophisticated design,
-              innovative technology, and iconic, performance-oriented form make
-              it a unique masterpiece of art, form and technique, that pushes
-              boundaries beyond imagination.
+            <p id="description-data" class="products-small-data description-data">
             </p>
           </div>
           <div class="products-small-details-con products-category">
             <h4 class="products-small-title category-title">Category:</h4>
-            <p class="products-small-data category-data">Sports Car</p>
+            <p id="category-data" class="products-small-data category-data"></p>
           </div>
           <div class="products-small-details-con products-min-bid">
             <h4 class="products-small-title min-bid-title">Minimum Bid:</h4>
-            <p class="products-small-data min-bid-data">$ 3,700,000</p>
+            <p id="min-bid-data" class="products-small-data min-bid-data"></p>
           </div>
           <div class="products-small-details-con products-bid-deadline">
             <h4 class="products-small-title bid-deadline-title">Bid Deadline:</h4>
-            <p class="products-small-data bid-deadline-data">27th Feb  2023</p>
+            <p id="bid-deadline-data" class="products-small-data bid-deadline-data"></p>
           </div>
           <div class="products-small-details-con products-uploaded-by">
             <h4 class="products-small-title uploaded-by-title">Uploaded By:</h4>
             <div class="uploaded-by-small-con">
-            <p class="products-small-data uploaded-by-data">tristantate@gmail.com</p>
+            <p id="uploaded-by-data" class="products-small-data uploaded-by-data"></p>
             <button class="email-btn btn">Email</button>
             </div>
           </div>
@@ -63,26 +56,25 @@
         </div>
 
         <div class="products-details-image-con">
-            <img src="./assets/Bugatti_Chiron.jpg" alt="" class="products-details-img">
+            <img src="" alt="" id="img-data" class="products-details-img">
         </div>
 
       </div>
-
       <div class="products-place-bid-con">
         <h4 class="products-place-bid-title">Place Bid</h4>
         <input type="text" class="products-place-bid-input" placeholder="Enter Amount">
       </div>
-
       <div class="products-profile-con profile-con">
         <div class="products profile-icon-con">
             <img src="./assets/profile-icon.png" alt="" class="profile-img">
         </div>
         <div class="profile-details-con">
-            <h3 id="profile1-name" class="profile-name">tristan tate</h3>
-            <h5 id="profile1-email" class="profile-email">mrplenty@gmail.com</h5>
+            <h3 id="profile1-uname" class="profile-name"></h3>
+            <h5 id="profile1-email" class="profile-email"></h5>
         </div>
       </div>
 
     </div>
+    <script type="module" src="./TGA_products_descripition.js"></script>
   </body>
 </html>
