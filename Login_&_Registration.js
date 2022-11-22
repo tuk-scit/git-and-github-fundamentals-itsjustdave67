@@ -95,10 +95,6 @@ document.getElementById("Log-btn").addEventListener("click", function () {
   signInWithEmailAndPassword(auth, loginEmail, loginPassword)
     .then((userCredential) => {
       const user = userCredential.user;
-      const dbref = ref(db);
-
-    
-      
       document.getElementById("result-box").style.display = "inline";
       document.getElementById("Login_form_container").style.display = "none";
       document.getElementById("result").innerHTML =
@@ -152,45 +148,45 @@ function insertUserName() {
   }) 
 }
 
-function selectData() {
-  const dbref = ref(db);
+// function selectData() {
+//   const dbref = ref(db);
 
-  get(child(dbref,"TheUsers/" + username.value)).then((snapshot)=>{
-    if(snapshot.exists()) {
-      var Uname = snapshot.val().Username;
-      unamedisplay.value = Uname;
-      localStorage.setItem("uname",Uname)
-    }
-    else {
-      alert ("No data found");
-    }
-  })
-  .catch((error)=>{
-    alert("Unsuccessful, Error!<br/>"+error.message);
-  })
-}
+//   get(child(dbref,"TheUsers/" + username.value)).then((snapshot)=>{
+//     if(snapshot.exists()) {
+//       var Uname = snapshot.val().Username;
+//       unamedisplay.value = Uname;
+//       localStorage.setItem("uname",Uname)
+//     }
+//     else {
+//       alert ("No data found");
+//     }
+//   })
+//   .catch((error)=>{
+//     alert("Unsuccessful, Error!<br/>"+error.message);
+//   })
+// }
 
-function updateData() {
-  update(ref(db, "TheUsers/" + username.value),{
-    Username: username.value
-  })
-  .then(()=>{
-    alert("data updated successfully!");
-  })
-  .catch((error)=>{
-    alert("Unsuccessful, Error occured!<br/>" +error.message);
-  }) 
-}
+// function updateData() {
+//   update(ref(db, "TheUsers/" + username.value),{
+//     Username: username.value
+//   })
+//   .then(()=>{
+//     alert("data updated successfully!");
+//   })
+//   .catch((error)=>{
+//     alert("Unsuccessful, Error occured!<br/>" +error.message);
+//   }) 
+// }
 
-function deleteData() {
-  update(ref(db, "TheUsers/" + username.value))
-  .then(()=>{
-    alert("data removed successfully!");
-  })
-  .catch((error)=>{
-    alert("Unsuccessful, Error occured!<br/>" +error.message);
-  })
-}
+// function deleteData() {
+//   update(ref(db, "TheUsers/" + username.value))
+//   .then(()=>{
+//     alert("data removed successfully!");
+//   })
+//   .catch((error)=>{
+//     alert("Unsuccessful, Error occured!<br/>" +error.message);
+//   })
+// }
 
 document.getElementById("Reg-btn").addEventListener("click", function () {
 if (uname.length||reg_email.length||reg_pwd.length||reg_cpwd.length < 8){
@@ -210,7 +206,7 @@ else {
       document.getElementById("Registration_form_container").style.display = "none";
       document.getElementById("result").innerHTML =
         "Welcome!<br>" + registerEmail + " was Registered Successfully";
-        
+        insertUserName();
         setTimeout(function() {
           
           window.location.href = "http://127.0.0.1:5500/Login_&_Registration.html";
@@ -228,7 +224,7 @@ else {
         },5000);
     });
 
-    insertUserName();
+    
     
 };
 });

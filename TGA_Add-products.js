@@ -50,7 +50,9 @@ const extname = document.getElementById("extname");
 const selbtn = document.getElementById("selbtn");
 const profile_uname = document.getElementById("profile-uname");
 const profile_email = document.getElementById("profile-email");
+const proglab = document.getElementById("proglab");
 var imgURL = null;
+let conditions=true;
 //#endregion
 
 getUserInfo ();
@@ -61,8 +63,25 @@ submit.addEventListener("click", () => {
     alert("Please fill in all the fields required before submission!");
   } else {
     getProductId();
-    insertProductsDetails();
-    UploadProcess();
+
+
+    const proms= new Promise((resolve, reject) => {
+          if (conditions) {
+              resolve (UploadProcess());
+          } else {
+              reject ("This condition faild");
+          }
+  });
+  
+  
+  proms.then((result) => {
+    console.log("result ---------- "+imgURL);
+    insertProductsDetails(imgURL);
+  })
+  .catch(function(error){
+      console.log(error);
+  });
+    
   }
 });
 //#endregion
@@ -85,7 +104,6 @@ input1.onchange = (e) => {
   var extension = GetFileExtension(files[0]);
   var name = GetFileName(files[0]);
 
-  console.log(name);
   img_file.value = name;
   extname.innerHTML = extension;
 
@@ -101,7 +119,6 @@ function GetFileExtension(file) {
   var ext = temp.slice(temp.length - 1, temp.length);
   return "." + ext[0];
 }
-
 function GetFileName(file) {
   var temp = file.name.split(".");
   var fname = temp.slice(0, -1).join(".");
@@ -127,7 +144,7 @@ async function UploadProcess() {
     "state-changed",
     (snapshot) => {
       var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      proglab.innerHTML = " Upload " + progress + "%";
+      proglab.innerHTML = progress;
     },
     (error) => {
       var errmsg = error.message;
@@ -136,6 +153,7 @@ async function UploadProcess() {
     () => {
       getDownloadURL(UploadTask.snapshot.ref).then((downloadURL) => {
         setDownloadURL(downloadURL);
+        console.log(downloadURL);
       });
     }
   );
@@ -147,6 +165,7 @@ function setDownloadURL(downloadURL) {
   imgURL = downloadURL;
 }
 function gettingDownloadURL() {
+  console.log("second -----"+imgURL);
   return imgURL;
 }
 
@@ -157,25 +176,32 @@ function getProductId() {
   const dbref = ref(db);
 
   get(child(dbref, "Counter_id")).then((snapshot) => {
-    if (Number(snapshot.val()) == 0) {
-      var currentCounterId = Number(snapshot.val());
+    if (snapshot.val().Counter_id == 0) {
+      var currentCounterId = snapshot.val().Counter_id;
       currentCounterId++;
-
+      console.log("crtid "+currentCounterId);
+      console.log("counter "+snapshot);
+   try {
       set(ref(db, "/"), {
-        Counter_id: currentCounterId,
-      });
+        Counter_id: currentCounterId
+      });}
+      catch (err) {
+        alert("Error!---- "+err);
+      }
+      
     }
   });
 }
 //#endregion
 
 //#region save details on realtime database
-function insertProductsDetails() {
+function insertProductsDetails(imgURL) {
+  console.log("Insert ---------- "+imgURL);
   const dbref = ref(db);
   var loginEmail = localStorage.getItem("loginEmail");
 
   get(child(dbref, "Counter_id")).then((snapshot) => {
-    var currentCounterId = snapshot.val();
+    var currentCounterId = snapshot.val().Counter_id;
     console.log(currentCounterId);
     var name = img_file.value;
     var extension = extname.value;
@@ -185,14 +211,15 @@ function insertProductsDetails() {
       name: pname.value,
       category: category.value,
       description: description.value,
-      image_file: name + extension,
-      image_URL: gettingDownloadURL(),
+      image_file: (name + extension),
+      image_URL: imgURL,
       minimum_bid: min_bid.value,
       bid_deadline: bid_deadline.value,
       Uploaded_by_email: loginEmail
     })
       .then(() => {
         alert("data stored successfully!");
+        console.log("the url ------- "+gettingDownloadURL());
         currentCounterId++;
 
         set(ref(db, "Counter_id"), {
@@ -206,6 +233,7 @@ function insertProductsDetails() {
 }
 //#endregion
 
+//#region Fil profile
 function getUserInfo () {
   const dbref = ref(db);
   const loginEmail = localStorage.getItem("loginEmail").replace(".","_");
@@ -221,11 +249,11 @@ function getUserInfo () {
     alert("Error no user retrievals: --- "+errorMessage);
   })
 }
-
 function fillProfile (username, email) {
   profile_uname.innerHTML = username;
   profile_email.innerHTML = email;
 }
+//#endregion
 
 
 // The CHIRON is the fastest, most powerful,

@@ -43,9 +43,9 @@ function getProducts () {
     const dbref = ref(db);
   
     get(child(dbref,"Counter_id")).then((snapshot)=>{
-        if(snapshot.val().Counter_id > 1) {
+        if(snapshot.val().Counter_id > 0) {
            var tableId = snapshot.val().Counter_id;
-           for(var i=1; i<tableId; i++) {
+           for(var i=1; i<=tableId; i++) {
                 get(child(dbref,"TheProducts/" + i))
                 .then((snapshot)=>{
                     var p_id = snapshot.val().p_id
@@ -66,7 +66,7 @@ function getProducts () {
         else {
             alert ("No data found");
         }
-    }); 
+    });
 }
 
 function getUserInfo () {
@@ -151,22 +151,22 @@ function fillTable (p_id,category,pname,description,image_URL,minimum_bid,bid_de
 
 }
 
-function selectData() {
-    const dbref = ref(db);
+// function selectData() {
+//     const dbref = ref(db);
     
 
-    get(child(dbref,"TheProducts/" + pname.value)).then((snapshot)=>{
-      if(snapshot.exists()) {
-        alert(snapshot.val().Username);
-      }
-      else {
-        alert ("No data found");
-      }
-    })
-    .catch((error)=>{
-      alert("Unsuccessful, Error!<br/>"+error.message);
-    });
-}
+//     get(child(dbref,"TheProducts/" + pname.value)).then((snapshot)=>{
+//       if(snapshot.exists()) {
+//         alert(snapshot.val().Username);
+//       }
+//       else {
+//         alert ("No data found");
+//       }
+//     })
+//     .catch((error)=>{
+//       alert("Unsuccessful, Error!<br/>"+error.message);
+//     });
+// }
 
 
 
