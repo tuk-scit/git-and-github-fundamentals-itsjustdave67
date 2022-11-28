@@ -22,8 +22,8 @@
                 </button>
                 <div class="search-btn-con">
                     <form action="" class="search-bar">
-                        <input type="search" name="search" pattern=".*\S.*" required>
-                        <button class="search-btn" type="submit">
+                        <input type="search" id="searchInput" name="search" onkeyup="tableSearch()"  pattern=".*\S.*" required>
+                        <button onclick="submittedTableSearch()" class="search-btn" type="submit">
                             <span>Search</span>
                         </button>
                     </form>
@@ -53,7 +53,7 @@
             </div>
 
             <div class="Items-table-container">
-                <table class="products-table">
+                <table class="products-table" id="products-table">
                     <tr class="product-head-row">
                         <th class="table-head">No.</th>
                         <th class="table-head">Image</th>

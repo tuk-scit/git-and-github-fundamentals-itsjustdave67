@@ -1,3 +1,4 @@
+/* #region importss */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js";
 import {
   getAuth,
@@ -15,6 +16,7 @@ import {
   getDownloadURL
 } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-storage.js";
 
+/*#endregion imports */
 const firebaseConfig = {
     apiKey: "AIzaSyCb-eEfNFF6mWl1P-d8_xZDIPqCswJgnsM",
     authDomain: "top-g-auctions.firebaseapp.com",
@@ -148,6 +150,57 @@ function fillTable (p_id,category,pname,description,image_URL,minimum_bid,bid_de
           window.location.href = "http://127.0.0.1:5500/TGA_products_description.html";
       });
     });
+
+}
+
+function tableSearch() {
+  let searchInput, filter, table, tr, td, txtValue;
+
+  searchInput = document.getElementById ("searchInput");
+  filter = searchInput.value.toUpperCase();
+  table = document.getElementById("products-table");
+  tr = document.getElementsByTagName("tr");
+
+  for(let i= 0; i<tr.length; i++) {
+    
+    td = tr[i].getElementsByTagName("td")[3];
+    if (td) {
+      txtValue = td.children[0].textContent ||
+      td.children[0].innerText ||
+      td.children[0].innerHTML
+
+      if(txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none"
+      }
+    }
+  }
+}
+
+function submittedTableSearch () {
+  let searchInput, filter, table, tr, td, txtValue;
+
+  searchInput = document.getElementById ("searchInput");
+  filter = searchInput.value.toUpperCase();
+  table = document.getElementById("products-table");
+  tr = document.getElementsByTagName("tr");
+
+  for(let i= 0; i<tr.length; i++) {
+    
+    td = tr[i].getElementsByTagName("td")[3];
+    if (td) {
+      txtValue = td.children[0].textContent ||
+      td.children[0].innerText ||
+      td.children[0].innerHTML
+
+      if(txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none"
+      }
+    }
+  }
 
 }
 
