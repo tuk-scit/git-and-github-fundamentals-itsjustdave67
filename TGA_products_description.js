@@ -4,7 +4,7 @@ import { getAuth } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-auth
 import {
   getDatabase,
   ref,
-  get,
+  get,set,
   child,
 } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-database.js";
 
@@ -23,17 +23,42 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase();
 
-getProducts();
-getUserInfo ();
-
 const profile_uname = document.getElementById("profile-uname");
 const profile_email = document.getElementById("profile-email");
+const confirm_btn = document.getElementById("confirm-btn");
+const ID = localStorage.getItem("p_id");
+const dbref = ref(db);
+const current_high_amount = document.getElementById("current-high-amount");
+const current_high_name = document.getElementById("current-high-name");
+const place_bid_input = document.getElementById("place-bid-input");
+const alert_overlay = document.getElementById("alert-overlay")
+const alert_text = document.getElementById("alert-text")
+const alert_btn = document.getElementById("alert-btn")
+const alert_title = document.getElementById("alert-title")
+const loginEmail = localStorage.getItem("loginEmail")
+
+
+getProducts();
+getUserInfo ();
+fillCurrentHighAmount()
+
+function fillCurrentHighAmount () {
+
+  get(child(dbref, "Bids/" + ID))
+  .then((snapshot) => {
+    var currentHigh = snapshot.val().Current_high
+    current_high_amount.innerHTML = "$ " + numberWithCommas(currentHigh)
+    current_high_name.innerHTML = snapshot.val().Current_high_name
+})
+}
+
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 function getProducts() {
-  const dbref = ref(db);
-
-  const ID = localStorage.getItem("p_id");
-  const uname = localStorage.getItem("uname");
+ 
+const uname = localStorage.getItem("uname");
 //   get(child(dbref,"TheUsers/"+))
   get(child(dbref, "TheProducts/" + ID))
     .then((snapshot) => {
@@ -71,14 +96,17 @@ function fillDetails(pname,description,category,minimum_bid,bid_deadline,image_U
 
 
 }
+
 function getUserInfo () {
   const dbref = ref(db);
-  const loginEmail = localStorage.getItem("loginEmail").replace(".","_");
+  var newloginEmail = loginEmail.replace(".","_");
+  
 
-  get(child(dbref, "TheUsers/"+loginEmail))
+  get(child(dbref, "TheUsers/"+newloginEmail))
   .then((snapshot)=> {
     var Username = snapshot.val().Username;
     var Email = snapshot.val().Email;
+    
     fillProfile(Username,Email);
   })
   .catch(error => {
@@ -91,3 +119,45 @@ function fillProfile (username, email) {
   profile_uname.innerHTML = username;
   profile_email.innerHTML = email;
 }
+
+confirm_btn.addEventListener("click", () => {
+  
+  var placed_bid = parseInt(place_bid_input.value)
+  var valinput = current_high_amount.innerHTML.replace(/,/g, '').replace("$",'').trim()
+  var currentTestHigh = parseInt(valinput)
+  console.log(placed_bid)
+  console.log(currentTestHigh)
+
+if (typeof(placed_bid) !== "number") {
+  alert_overlay.style.display = "block"
+  alert_text.innerHTML = "Wrong input: Please input only numbers in the field provided"
+  place_bid_input.value = ""
+
+} else {
+  
+  if(placed_bid < currentTestHigh) {
+    alert_overlay.style.display = "block"
+    alert_text.innerHTML = "The bid you have placed is lower than the current High. Please place a higher amount to have a chance in winning the bid"
+  } else {
+    alert_overlay.style.display = "block"
+    alert_title.innerHTML = "One Step Closer!"
+    alert_text.innerHTML = "Thank you, Bid has been placed Successfully"
+
+    set(ref(db, "Bids/" + ID), {
+      Current_high: place_bid_input.value,
+      Current_high_name: profile_uname.innerHTML
+    });
+     fillCurrentHighAmount()
+
+  }
+}
+
+  
+  
+})
+
+alert_btn.addEventListener("click", () => {
+  alert_overlay.style.display = "none"
+})
+
+

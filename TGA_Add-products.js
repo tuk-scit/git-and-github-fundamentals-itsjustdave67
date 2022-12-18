@@ -2,8 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js";
 import {
   getAuth,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
+  onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-auth.js";
 import {
   getDatabase,
@@ -36,6 +35,8 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase();
 
+const user = auth.currentUser;
+
 //#region extraction of required html elements
 const submit = document.getElementById("submit-btn");
 const category = document.getElementById("category");
@@ -43,6 +44,7 @@ const pname = document.getElementById("pname");
 const description = document.getElementById("description");
 const img_file = document.getElementById("img_file");
 const min_bid = document.getElementById("min-bid");
+
 const bid_deadline = document.getElementById("bid-deadline");
 const input = document.getElementsByTagName("input");
 const myimg = document.getElementById("myimg");
@@ -51,40 +53,83 @@ const selbtn = document.getElementById("selbtn");
 const profile_uname = document.getElementById("profile-uname");
 const profile_email = document.getElementById("profile-email");
 const proglab = document.getElementById("proglab");
+const back_btn = document.getElementById("back-btn");
+const alert_overlay = document.getElementById("alert-overlay");
+const alert_title = document.getElementById("alert-title");
+const alert_text = document.getElementById("alert-text");
+const alert_logon_btn = document.getElementById("alert-logon-btn");
+const alert_btn = document.getElementById("alert-btn");
+var current_high
+var currentCounterId;
+var loginEmail;
+var signedIn;
+
+let title, message;
+
 var imgURL = null;
-let conditions=true;
+
+onAuthStateChanged(auth, function (user) {
+  if (user) {
+    //User is signed in
+    loginEmail = user.email;
+    console.log()
+    signedIn = true;
+    getUserInfo(signedIn);
+
+  } else {
+    // User isn't signed in
+    title = "Login Alert!";
+  message = "No user is logged in. Kindly login to access Top G Auctions Full features"
+  displayMessage(title,message);
+    loginEmail = "noemail@gmail.com"
+    signedIn = false;
+    getUserInfo(signedIn);
+  }
+});
+
+
+    // #region testvalues
+    category.setAttribute("value","Sports Car")
+    pname.setAttribute("value","The Bugatti Chiron")
+    description.setAttribute("value","It is a very fast car")
+    min_bid.setAttribute("value","$ 3,700,000")
+    bid_deadline.setAttribute("value","23/02/2023")
+    img_file.setAttribute("value","No file chosen")
+    //#endregion testvalues
+
 //#endregion
 
-getUserInfo ();
-
-//#region submit button functionality
+//#region submit and back button functionality
 submit.addEventListener("click", () => {
-  if ((input.value = "")) {
+  if ((input.value == "")) {
     alert("Please fill in all the fields required before submission!");
   } else {
     getProductId();
-
-
-    const proms= new Promise((resolve, reject) => {
-          if (conditions) {
-              resolve (UploadProcess());
-          } else {
-              reject ("This condition faild");
-          }
-  });
   
-  
-  proms.then((result) => {
+  UploadProcess()
+  .then(() => {
+    console.log("heya")
+    console.log(proglab.innerHTML)
+    if(proglab.innerHTML == 100) {
     console.log("result ---------- "+imgURL);
     insertProductsDetails(imgURL);
+    }
   })
-  .catch(function(error){
-      console.log(error);
+  .catch((error) => {
+    displayError(error);
   });
     
   }
 });
-//#endregion
+
+alert_btn.addEventListener("click", () => {
+  alert_overlay.style.display = "none";
+});
+
+back_btn.addEventListener("click", function(){
+  window.location.href = "http://127.0.0.1:5500/Top_G_Auctions.html"
+})
+//#endregion submit and back button functionality
 
 //#region Choice of the file
 var files = [];
@@ -112,6 +157,7 @@ input1.onchange = (e) => {
 
 reader.onload = function () {
   myimg.src = reader.result;
+  myimg.style.display = "flex"
 };
 
 function GetFileExtension(file) {
@@ -144,16 +190,19 @@ async function UploadProcess() {
     "state-changed",
     (snapshot) => {
       var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      proglab.innerHTML = progress;
+      proglab.innerHTML = Math.round(progress);
     },
     (error) => {
-      var errmsg = error.message;
-      alert("error: Image not uploaded because [" + errmsg + "]");
+      displayError(error)
     },
     () => {
       getDownloadURL(UploadTask.snapshot.ref).then((downloadURL) => {
         setDownloadURL(downloadURL);
-        console.log(downloadURL);
+        console.log(proglab.innerHTML);
+        if (proglab.innerHTML == 100) {
+        insertProductsDetails(imgURL);
+        
+        }
       });
     }
   );
@@ -186,7 +235,7 @@ function getProductId() {
         Counter_id: currentCounterId
       });}
       catch (err) {
-        alert("Error!---- "+err);
+        displayError(err.message);
       }
       
     }
@@ -194,17 +243,19 @@ function getProductId() {
 }
 //#endregion
 
-//#region save details on realtime database
+//#region insert Product details on realtime database
 function insertProductsDetails(imgURL) {
   console.log("Insert ---------- "+imgURL);
   const dbref = ref(db);
   var loginEmail = localStorage.getItem("loginEmail");
 
-  get(child(dbref, "Counter_id")).then((snapshot) => {
-    var currentCounterId = snapshot.val().Counter_id;
-    console.log(currentCounterId);
+  get(child(dbref, "Counter_id"))
+  .then((snapshot) => {
+    currentCounterId = snapshot.val().Counter_id;
+    console.log("the value:"+currentCounterId);
     var name = img_file.value;
-    var extension = extname.value;
+    var extension = extname.innerHTML;
+    current_high = parseInt(min_bid.value.replace(/,/g, '').replace("$",'').trim())
 
     set(ref(db, "TheProducts/" + currentCounterId), {
       p_id: currentCounterId,
@@ -215,30 +266,43 @@ function insertProductsDetails(imgURL) {
       image_URL: imgURL,
       minimum_bid: min_bid.value,
       bid_deadline: bid_deadline.value,
-      Uploaded_by_email: loginEmail
+      Uploaded_by_email: loginEmail,
+      delete_state: "false"
     })
-      .then(() => {
-        alert("data stored successfully!");
-        console.log("the url ------- "+gettingDownloadURL());
-        currentCounterId++;
+  })
+  .then(() => {
+        title = "Submitted successfully!";
+        message = "Data has been stored successfully!";
+        displayMessage(title, message);
+        console.log(currentCounterId)
 
         set(ref(db, "Counter_id"), {
           Counter_id: currentCounterId,
         });
+  })
+  .then(()=> {
+      const idVal = currentCounterId - 1;
+
+      set(ref(db, "Bids/" + idVal), {
+        Current_high: current_high,
+        Current_high_name: profile_uname.innerHTML
+         
       })
-      .catch((error) => {
-        alert("Unsuccessful, Error occured!<br/>" + error.message);
-      });
+  })
+  .catch((error) => {
+        displayError(error)
   });
+  
 }
 //#endregion
 
 //#region Fil profile
-function getUserInfo () {
+function getUserInfo (signIn_status) {
   const dbref = ref(db);
-  const loginEmail = localStorage.getItem("loginEmail").replace(".","_");
+  const userLoginEmail = loginEmail.replace(".","_");
 
-  get(child(dbref, "TheUsers/"+loginEmail))
+  if (signIn_status == true) {
+  get(child(dbref, "TheUsers/"+userLoginEmail))
   .then((snapshot)=> {
     var Username = snapshot.val().Username;
     var Email = snapshot.val().Email;
@@ -246,8 +310,9 @@ function getUserInfo () {
   })
   .catch(error => {
     var errorMessage = error.message;
-    alert("Error no user retrievals: --- "+errorMessage);
+    displayError(errorMessage);
   })
+}
 }
 function fillProfile (username, email) {
   profile_uname.innerHTML = username;
@@ -255,6 +320,22 @@ function fillProfile (username, email) {
 }
 //#endregion
 
+// #region alert display functions
+function displayError(error) {
+  let errorMessage = error.message;
+    alert_overlay.style.display = "block"
+    console.log(error.stack)
+    alert_text.innerHTML = "Error: " + errorMessage + "</br> [ " + error.stack +" ]"
+    alert_logon_btn.style.display = "none"
+}
+
+function displayMessage(title, message) {
+  alert_overlay.style.display = "block"
+  alert_logon_btn.style.display = "none"
+  alert_title.innerHTML = title
+  alert_text.innerHTML = message
+}
+// #endregion alert display functions
 
 // The CHIRON is the fastest, most powerful,
 // and exclusive production super sports car

@@ -49,7 +49,9 @@ const Login_btn = document.getElementById("Login-btn");
 const back_icon_btn =  document.getElementById("back-icon-btn");
 
 
-
+// proceed_btn_con.onclick = function () {
+//   localStorage.clear();
+// }
 
 Register_btn.addEventListener("click", function() {
     document.documentElement.style.setProperty('--ff-maintitle', 'Bahianita');
@@ -70,6 +72,7 @@ Login_btn.addEventListener("click", function() {
     Login_btn.style.display = "none";
     Login_form_container.style.display = "inline-block";
 })
+
 back_icon_btn.addEventListener("click", function() {
     window.location.href = "http://127.0.0.1:5500/Login_&_Registration.html";
 })
@@ -138,7 +141,8 @@ togglePassword.addEventListener('mouseup', function (e) {
 function insertUserName() {
   set(ref(db, "TheUsers/" + reg_email.value.replace(".","_")),{
     Username: username.value,
-    Email: reg_email.value
+    Email: reg_email.value,
+    user_status: "user"
   })
   .then(()=>{
     alert("data stored successfully!");

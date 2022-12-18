@@ -5,25 +5,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
-    <link rel="icon" type="image/x-icon" href="/assets/auction.png" sizes="16x16 32x32">
 
+    <link rel="icon" type="image/x-icon" href="/assets/auction.png" sizes="16x16 32x32">
     <link rel="stylesheet" href="Top G Auctions.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+ 
 </head>
 <body>
     <div class="Top_G_Auctions">
         <img class="bg2" src="./assets/Andrew-Tate-Poster-Top-G3.jpg" alt="where is your bugatti image background">
+        <div id="alert-overlay" class="alert-overlay">
+            <div id="alert-box" class="alert-box">
+                <h2 id="alert-title" class="alert-title">Alert!</h2>
+                <p class="alert-text" id="alert-text">This is an error message</p>
+                <div class="alert-btns">
+                    <button class="alert-btn email-btn" id="alert-btn">Ok.</button>
+                    <button class="alert-btn email-btn" id="alert-logon-btn">Log in.</button>
+                </div>
+            </div>
+        </div>
         <div class="TGA-header-container">
             <div class="logo-container">
                 <img src="./assets/auction.png" alt="" class="logo">
             </div>
             <div class="bar-btn-con">
-                <button id="menu-btn" class="menu-btn">
-                    <img src="./assets/menu-icon.png" alt="" class="menu-img">
-                </button>
+                <div class="menu-btn-con">
+                    <button id="menu-btn1" class="menu-btn">
+                        <img src="./assets/menu-icon.png" alt="" class="menu-img">
+                    </button>
+                </div>
                 <div class="search-btn-con">
                     <form action="" class="search-bar">
-                        <input type="search" id="searchInput" name="search" onkeyup="tableSearch()"  pattern=".*\S.*" required>
-                        <button onclick="submittedTableSearch()" class="search-btn" type="submit">
+                        <input type="search" id="searchInput" name="search"  pattern=".*\S.*" required>
+                        <button id="searchSubmitButton" class="search-btn" type="submit">
                             <span>Search</span>
                         </button>
                     </form>
@@ -45,13 +59,24 @@
         </div>
         <div class="TGA-body-container">
             <div id="TGAmenu-container" class="TGAmenu-container">
-                <a href="./TGA_Add_products.html" class="TGAmenu-item TGAmenu-item1">Add Product</a>
-                <a href="" class="TGAmenu-item TGAmenu-item2">Filter items</a>
-                <a href="" class="TGAmenu-item TGAmenu-item3">Filter items</a>
-                <a href="" class="TGAmenu-item TGAmenu-item4">Filter items</a>
-                <a href="" class="TGAmenu-item TGAmenu-item5">Log out</a>
-            </div>
+                <a href="#" id="add-product-btn" class="TGAmenu-item TGAmenu-item1">Add Product</a>
 
+                <div class="dropdown show">
+                    <a href="#" class="btn btn-secondary dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button" >
+                        Filter items
+                    </a>
+
+                    <div id="dropdown-menu" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                       <!-- <a href="#" class="dropdown-item">Hello</a> -->
+                    </div>
+                </div>
+                <a href="#" id="all-products-btn" class="TGAmenu-item TGAmenu-item3">All products</a>
+                <a href="#" id="my-products-btn" class="TGAmenu-item TGAmenu-item3">My products</a>
+                
+                <a href="#" id="log-out" class="TGAmenu-item TGAmenu-item2">Log out</a>
+                <a href="#" id="log-in" class="TGAmenu-item TGAmenu-item2">Log in</a>
+                <a href="#" id="delete-products-btn" class="TGAmenu-item TGAmenu-item3">Delete requests</a>
+            </div>
             <div class="Items-table-container">
                 <table class="products-table" id="products-table">
                     <tr class="product-head-row">
@@ -62,11 +87,20 @@
                         <th class="table-head">Min-Bid</th>
                         <th class="table-head">Bid-Deadline</th>
                     </tr>
+
+                    
                     <tbody id="tbody" class="tbody">
-                        <!-- #region tester row -->
+                        <div class="no-products-con" id="no-products-con">
+                            <p class="no-products-text" id="no-products-text">No Products Available.</p>
+                        </div>
+                    </tbody>
+                     <!-- #region tester row -->
                         <!-- <tr class="product-row">
+                            
                             <td class="product-id">
+                                <div class="product-overlay">Pending deletion!</div>
                                 <p>1</p>
+                                
                             </td>
                             <td class="product-img-con">
                                 <img class="product-img" src="./assets/Bugatti_Chiron.jpg" alt="" >
@@ -82,17 +116,22 @@
                             </td>
                             <td class="product-bid-deadline">
                                 <p>27/02/2023</p>
+                                <a href="#" class="delete-btn">Delete.</a>
                             </td>
+                            
                         </tr> -->
                         <!-- #endregion tester row -->
-                    </tbody>
-                    
                     
                 </table>
             </div>
+            
         </div>
+        
     </div>
     
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script type="module" src="Top_G_Auctions.js"></script>
-</body>
+    </body>
 </html>
