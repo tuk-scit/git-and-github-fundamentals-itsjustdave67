@@ -274,8 +274,7 @@ function insertProductsDetails(imgURL) {
         title = "Submitted successfully!";
         message = "Data has been stored successfully!";
         displayMessage(title, message);
-        console.log(currentCounterId)
-
+        
         set(ref(db, "Counter_id"), {
           Counter_id: currentCounterId,
         });
@@ -334,6 +333,9 @@ function displayMessage(title, message) {
   alert_logon_btn.style.display = "none"
   alert_title.innerHTML = title
   alert_text.innerHTML = message
+  alert_btn.onclick = function() {
+    window.location.reload();
+  }
 }
 // #endregion alert display functions
 

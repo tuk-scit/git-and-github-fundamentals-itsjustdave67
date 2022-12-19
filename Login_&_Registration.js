@@ -197,7 +197,8 @@ if (uname.length||reg_email.length||reg_pwd.length||reg_cpwd.length < 8){
   document.getElementById("error-con").style.display = "inline";
   document.getElementById("pwd-error").innerHTML = "One of the entries is too short!";
 }
-else if (reg_cpwd.innerHTML != reg_pwd.innerHTML) {
+
+if (reg_cpwd.value !== reg_pwd.value) {
   document.getElementById("error-con").style.display = "inline";
 }
 else {

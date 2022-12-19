@@ -12,12 +12,7 @@ import {
   update,
   remove,
 } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-database.js";
-import {
-  getStorage,
-  ref as sref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "https://www.gstatic.com/firebasejs/9.13.0/firebase-storage.js";
+
 
 /*#endregion imports */
 const firebaseConfig = {
@@ -92,15 +87,14 @@ onAuthStateChanged(auth, function (user) {
       alert_logon_btn.style.display = "block";
       alert_logon_btn.style.outline = "none";
       alert_btn.style.outline = "none";
-      localStorage.clear();
       alert_logon_btn.addEventListener("click", () => {
         window.location.href =
           "http://127.0.0.1:5500/Login_&_Registration.html";
       });
     });
+
     title = "Login Alert!";
-    message =
-      "No user is logged in. Kindly login to access Top G Auctions Full features";
+    message = "No user is logged in. Kindly login to access Top G Auctions Full features";
     displayMessage(title, message);
     loginEmail = "noemail@gmail.com";
     checkIfAdmin(loginEmail);

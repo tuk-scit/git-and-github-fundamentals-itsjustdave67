@@ -1,6 +1,6 @@
 //#region imports
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-auth.js";
 import {
   getDatabase,
   ref,
@@ -18,11 +18,13 @@ const firebaseConfig = {
 };
 //#endregion
 
-// References for the firebase connection
+// #region References for the firebase connection
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase();
+// #endregion References for the firebase connection
 
+// #region elements extractions
 const profile_uname = document.getElementById("profile-uname");
 const profile_email = document.getElementById("profile-email");
 const confirm_btn = document.getElementById("confirm-btn");
@@ -35,11 +37,32 @@ const alert_overlay = document.getElementById("alert-overlay")
 const alert_text = document.getElementById("alert-text")
 const alert_btn = document.getElementById("alert-btn")
 const alert_title = document.getElementById("alert-title")
-const loginEmail = localStorage.getItem("loginEmail")
+const email_btn = document.getElementById("email-btn")
+var loginEmail;
+var signedIn;
 
+// #endregion elements extractions
+
+onAuthStateChanged(auth, function (user) {
+  if (user) {
+    loginEmail = user.email;
+    signedIn = true;
+    getUserInfo(signedIn);
+  } else {
+    title = "Login Alert!";
+    message =
+      "No user is logged in. Kindly login to access Top G Auctions Full features";
+    displayMessage(title, message);
+    loginEmail = "noemail@gmail.com";
+    
+    
+    signedIn = false;
+    getUserInfo(signedIn);
+  }
+  
+});
 
 getProducts();
-getUserInfo ();
 fillCurrentHighAmount()
 
 function fillCurrentHighAmount () {
@@ -73,17 +96,19 @@ const uname = localStorage.getItem("uname");
       fillDetails(pname,description,category,minimum_bid,bid_deadline,image_URL,Uploaded_by_email);
       
     })
-    .catch((err) => {});
+    .catch((err) => {
+      displayError(err)
+    });
 }
 
 function fillDetails(pname,description,category,minimum_bid,bid_deadline,image_URL,Uploaded_by_email) {
-    const product_title = document.getElementById("TGA-product-title");
-    const product_description = document.getElementById("description-data");
-    const product_category = document.getElementById("category-data");
-    const product_min_bid = document.getElementById("min-bid-data");
-    const product_bid_deadline = document.getElementById("bid-deadline-data");
-    const product_img = document.getElementById("img-data");
-    const product_uploaded_by = document.getElementById("uploaded-by-data");
+    var product_title = document.getElementById("TGA-product-title");
+    var product_description = document.getElementById("description-data");
+    var product_category = document.getElementById("category-data");
+    var product_min_bid = document.getElementById("min-bid-data");
+    var product_bid_deadline = document.getElementById("bid-deadline-data");
+    var product_img = document.getElementById("img-data");
+    var product_uploaded_by = document.getElementById("uploaded-by-data");
     
 
     product_title.innerHTML = pname;
@@ -94,14 +119,15 @@ function fillDetails(pname,description,category,minimum_bid,bid_deadline,image_U
     product_img.src = image_URL;
     product_uploaded_by.innerHTML = Uploaded_by_email;
 
+    email_btn.onclick = sendingEmailSetup(Uploaded_by_email)
 
 }
 
-function getUserInfo () {
+function getUserInfo (signIn_status) {
   const dbref = ref(db);
   var newloginEmail = loginEmail.replace(".","_");
   
-
+  if (signIn_status == true) {
   get(child(dbref, "TheUsers/"+newloginEmail))
   .then((snapshot)=> {
     var Username = snapshot.val().Username;
@@ -110,15 +136,43 @@ function getUserInfo () {
     fillProfile(Username,Email);
   })
   .catch(error => {
-    var errorMessage = error.message;
-    alert("Error no user retrievals: --- "+errorMessage);
-  })
+    displayError(error);
+  });
+} else {
+  displayError("not signed in")
+}
 }
 
 function fillProfile (username, email) {
   profile_uname.innerHTML = username;
   profile_email.innerHTML = email;
 }
+
+
+
+function sendingEmailSetup (uploadEmail) {
+  console.log("it works --- " + uploadEmail);
+  email_btn.href = "https://mail.google.com/mail/?view=cm&fs=1&tf=1&to="+uploadEmail;
+  
+}
+
+// #region alert display functions
+function displayError(error) {
+  let errorMessage = error.message;
+  alert_overlay.style.display = "block";
+  console.log(error.stack);
+  alert_text.innerHTML =
+    "Error: " + errorMessage + "</br> [ " + error.stack + " ]";
+  alert_logon_btn.style.display = "none";
+  console.log(error.stack);
+}
+
+function displayMessage(title, message) {
+  alert_overlay.style.display = "block";
+  alert_title.innerHTML = title;
+  alert_text.innerHTML = message;
+}
+// #endregion alert display functions
 
 confirm_btn.addEventListener("click", () => {
   
@@ -159,5 +213,6 @@ if (typeof(placed_bid) !== "number") {
 alert_btn.addEventListener("click", () => {
   alert_overlay.style.display = "none"
 })
+
 
 
