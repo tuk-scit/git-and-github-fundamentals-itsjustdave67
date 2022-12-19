@@ -274,9 +274,9 @@ function insertProductsDetails(imgURL) {
         title = "Submitted successfully!";
         message = "Data has been stored successfully!";
         displayMessage(title, message);
-        
+        currentCounterId++;
         set(ref(db, "Counter_id"), {
-          Counter_id: currentCounterId,
+          Counter_id: currentCounterId
         });
   })
   .then(()=> {

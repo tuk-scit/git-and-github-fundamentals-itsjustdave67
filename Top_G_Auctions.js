@@ -366,7 +366,7 @@ function getProducts() {
       var categoryitems = [];
       
       
-      for (i = 1; i <= tableId; i++) {
+      for (i = 1; i < tableId; i++) {
         
         get(child(dbref, "TheProducts/"+i))
           .then((snapshot) => {
