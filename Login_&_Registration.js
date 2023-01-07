@@ -55,7 +55,9 @@ const back_icon_btn =  document.getElementById("back-icon-btn");
 
 Register_btn.addEventListener("click", function() {
     document.documentElement.style.setProperty('--ff-maintitle', 'Bahianita');
-    LRmain_title_con.style.marginBottom = "25px";
+    LRmain_title_con.style.left = "110px";
+    LRmain_title_con.style.right = "110px";
+    LRmain_title_con.style.top = "0px";
     LRsub_title_con.style.display = "none";
     proceed_btn_con.style.display = "none";
     Login_btn.style.display = "none";
@@ -78,6 +80,8 @@ back_icon_btn.addEventListener("click", function() {
 })
 document.getElementById("reg-btn").addEventListener("click",function() {
     Registration_form_container.style.display="inline-block";
+    Registration_form_title.style.display = "inline-block";
+    Registration_form_title.style.top = "13px";
     Login_form_container.style.display="none";
 });
 
@@ -85,10 +89,6 @@ document.getElementById("Reg-login-btn").addEventListener("click",function() {
     document.getElementById("Registration_form_container").style.display="none";
     document.getElementById("Login_form_container").style.display="inline-block";
 });
-
-
-
-
 
 document.getElementById("Log-btn").addEventListener("click", function () {
   const loginEmail = document.getElementById("login-email").value;
@@ -119,7 +119,6 @@ document.getElementById("Log-btn").addEventListener("click", function () {
         },5000);
     });
 });
-
 
 togglePassword.addEventListener('mousedown', function (e) {
   // toggle the type attribute

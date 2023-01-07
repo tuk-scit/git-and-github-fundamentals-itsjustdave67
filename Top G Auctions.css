@@ -239,6 +239,7 @@ body {
     position: relative;
     width: 100%;
     height: 100vh;
+    padding: 0;
 }
 .dark-overlay {
   position: absolute;
@@ -270,17 +271,20 @@ body {
 }
 .LRmain-title-con, .LRsub-title-con {
   position: relative;
-  z-index: 4;
+  z-index: 6;
   display: block;
   width: 100%;
   text-align: center;
+}
+.LRmain-title-con {
+  display: inline-block;
 }
 .LRmain-title {
   font-family: var(--ff-maintitle);
   display: inline-block;
   color: var(--main-primary-color);
-  top: 3%;
-  font-size: 6rem;
+  font-size: 80pt;
+  margin: 0;
 }
 .LRmain-title2-con {
   display: inline-block;
@@ -294,15 +298,15 @@ body {
   color: var(--fc-light);
   font-family: var(--ff-subtitle);
   display: block;
-  font-size: 4rem;
-  margin-top: 10%;
+  font-size: 55.7pt;
 }
 .LRsub-title2{
   position: relative;
   color: var(--fc-light);
   font-family: var(--ff-subtitle);
   display: block;
-  font-size: 2rem;
+  font-size: 32.3pt;
+  margin-bottom: 110px;
 }
 .bg {
     position: absolute;
@@ -311,12 +315,11 @@ body {
     z-index: 2;
 }
 .buttons-container {
-    position: absolute;
+    position: relative;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    bottom: 50px;
     z-index: 3;
 }
 .proceed-btn-con {
@@ -324,27 +327,45 @@ body {
   width: 100%;
   display: block;
   height: auto;
-  padding: .5rem;
+  margin-bottom: 56px;
   display: flex;
   justify-content:center;
   align-items: center;
   z-index: 3;
 }
 .proceed-btn {
-  position: relative;
-  margin-top: 1rem;
-  
+  position: relative;  
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  text-align: center;
+  width: 323px;
+  height: 72px;
+  font-size: 26pt;
+  margin: 0;
 }
 .Register-btn:hover, .Login-btn:hover, .proceed-btn:hover {
   background-color: var(--main-primary-color);
   color: var(--fc-light);
+}
+.Register-btn, .Login-btn {
+  width: 285px;
+  height: 69px;
+  margin: 0;
+  font-size: 25pt;
+}
+.Register-btn {
+  margin-left: 93.5px;
+}
+.Login-btn {
+  margin-right: 93.5px;
 }
 input {
   position: relative;
   padding: 10px;
   resize: none;
   border: none;
-  outline: 2.5px solid var(--main-primary-color);
+  outline: 3px solid var(--main-primary-color);
   background: var(--main-secondary-color);
   border-radius: 15px;
   color: var(--main-primary-color);
@@ -399,14 +420,26 @@ input {
   padding: 3px;
 }
 .form_title {
-  margin-top: 5%;
-  margin-bottom: 2rem;
+  margin-top: 18px;
+  margin-bottom: 32px;
+  width: 323px;
+  height: 63px;
+  font-weight: var(--fw-xlarge);
+  font-family: var(--ff-primary);
+  font-size: 39pt;
+  text-align: center;
+}
+.Register_form_title {
+  top: 15px;
+  margin-top: 0;
 }
 .form-label {
   position: relative;
-  font-size: 90%;
+  font-size: 22pt;
   font-weight: var(--fw-large);
   font-family: var(--ff-primary);
+  margin-right: 25px;
+  margin-bottom: 10px;
 }
 .pwd-con, .uname-con, .cpwd-con, .email-con {
   position: relative;
@@ -425,7 +458,7 @@ input {
   text-decoration: none;
   font-family: var(--ff-primary);
   font-weight: var(--fw-large);
-  font-size: var(--fs-normal);
+  font-size: 14pt;
   font-style: none;
   padding: 0.3rem;
   padding-left: 1.5rem;
@@ -464,7 +497,7 @@ input {
   text-align: center;
 }
 .create-btn {
-  font-size: .8rem;
+  font-size: 12pt;
   color: var(--fc-dark);
   text-decoration: none;
   border: none;

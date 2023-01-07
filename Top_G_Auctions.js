@@ -193,10 +193,7 @@ log_in.addEventListener("click", () => {
   try {
     window.location.href = "http://127.0.0.1:5500/Login_&_Registration.html";
   } catch (error) {
-    let errorMessage = error.message;
-    alert_overlay.style.display = "block";
-    alert_text.innerHTML = "Error: " + errorMessage;
-    alert_btn.style.outline = "none";
+    displayError(error)
   }
 });
 
@@ -936,7 +933,9 @@ function getUserInfo(signIn_status) {
         console.log(error);
       });
   } else {
-    displayError("not signed in");
+    title = "Login Alert!";
+    message = "No user is logged in. Kindly login to access Top G Auctions Full features";
+    displayMessage(title, message);
   }
 }
 
@@ -998,16 +997,14 @@ function fillProfile(username, email) {
 function displayError(error) {
   let errorMessage = error.message;
   alert_overlay.style.display = "block";
-  console.log(error.stack);
-  alert_text.innerHTML =
-    "Error: " + errorMessage + "</br> [ " + error.stack + " ]";
+  alert_title.innerHTML = error;
+  alert_text.innerHTML = "Error: " + errorMessage + "</br> [ " + error.stack + " ]";
   alert_logon_btn.style.display = "none";
-  console.log(error.stack);
 }
 
 function displayMessage(title, message) {
   alert_overlay.style.display = "block";
-  alert_title.innerHTML = title;
   alert_text.innerHTML = message;
+  alert_title.innerHTML = title;
 }
 // #endregion alert display functions
