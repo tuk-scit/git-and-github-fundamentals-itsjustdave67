@@ -39,6 +39,7 @@ const username = document.getElementById("uname");
 const unamedisplay = document.getElementById("unamedisplay");
 
 const proceed_btn_con = document.getElementById("proceed-btn-con");
+const proceed_btn = document.getElementById("proceed-btn");
 const LRsub_title_con = document.getElementById("LRsub-title-con");
 const LRmain_title_con = document.getElementById("LRmain-title-con");
 const LRmain_title = document.getElementById("LRmain-title");
@@ -75,6 +76,9 @@ Login_btn.addEventListener("click", function() {
     Login_form_container.style.display = "inline-block";
 })
 
+proceed_btn.addEventListener("click", function () {
+  window.location.href = "http://127.0.0.1:5500/Top_G_Auctions.html"
+})
 back_icon_btn.addEventListener("click", function() {
     window.location.href = "http://127.0.0.1:5500/Login_&_Registration.html";
 })

@@ -1007,4 +1007,8 @@ function displayMessage(title, message) {
   alert_text.innerHTML = message;
   alert_title.innerHTML = title;
 }
+
+alert_logon_btn.addEventListener("click", function() {
+  window.location.href = "http://127.0.0.1:5500/Login_&_Registration.html";
+})
 // #endregion alert display functions
