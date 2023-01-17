@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TGA Products Description</title>
+
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/assets/auction.png"
+      sizes="16x16 32x32"
+    />
+    <link rel="stylesheet" href="Top G Auctions.css" />
+  </head>
+
+  <body>
+    <div class="products-description-container">
+
+      <div id="alert-overlay" class="alert-overlay">
+        <div id="alert-box" class="alert-box">
+            <h2 id="alert-title" class="alert-title">Alert!</h2>
+            <p class="alert-text" id="alert-text">This is an error message</p>
+            <div class="alert-btns">
+                <button class="alert-btn email-btn" id="alert-btn">Ok.</button>
+            </div>
+        </div>
+    </div>
+
+      <div class="TGA-products-description-header-con">
+        <h1 id="TGA-product-title" class="TGA-product-title">
+        </h1>
+      </div>
+
+      <div class="products-details-con">
+        <div class="products-details-description-con">
+          
+          <div class="products-small-details-con products-description">
+            <h4 class="products-small-title description-title">Description:</h4>
+            <p id="description-data" class="products-small-data description-data">
+            </p>
+          </div>
+          <div class="products-small-details-con products-category">
+            <h4 class="products-small-title category-title">Category:</h4>
+            <p id="category-data" class="products-small-data category-data"></p>
+          </div>
+          <div class="products-small-details-con products-min-bid">
+            <h4 class="products-small-title min-bid-title">Minimum Bid:</h4>
+            <p id="min-bid-data" class="products-small-data min-bid-data"></p>
+          </div>
+          <div class="products-small-details-con products-bid-deadline">
+            <h4 class="products-small-title bid-deadline-title">Bid Deadline:</h4>
+            <p id="bid-deadline-data" class="products-small-data bid-deadline-data"></p>
+          </div>
+
+          <div class="products-small-details-con products-uploaded-by">
+            <h4 class="products-small-title uploaded-by-title">Uploaded By:</h4>
+            <div class="uploaded-by-small-con">
+              <p id="uploaded-by-data" class="products-small-data uploaded-by-data"></p>
+              <a id="email-btn" href="" class="email-btn btn">Email</a>
+            </div>
+          </div>
+
+          <div class="products-small-details-con products-place-bid">
+            <h4 class="products-small-title uploaded-by-title">Place Bid:</h4>
+            <div class="uploaded-by-small-con">
+              <input type="number" class="products-small-data place-bid-input" id="place-bid-input" placeholder="Enter Amount">
+              <button id="confirm-btn" class="btn confirm-btn">Confirm</button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="products-details-image-con">
+            <img src="" alt="" id="img-data" class="products-details-img">
+            <div class="current-high-con">
+              <p id="current-high-name" class="current-high-name"></p>
+              <p id="current-high-amount" class="current-high-amount"></p>
+            </div>
+        </div>
+
+      </div>
+      
+
+      <div class="products-profile-con profile-con">
+        <div class="products profile-icon-con">
+            <img src="./assets/profile-icon.png" alt="" class="profile-img">
+        </div>
+        <div class="profile-details-con">
+            <h3 id="profile-uname" class="profile-name"></h3>
+            <h5 id="profile-email" class="profile-email"></h5>
+        </div>
+      </div>
+
+    </div>
+    <script type="module" src="./TGA_products_description.js"></script>
+  </body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TGA Add Products</title>
+    <link rel="icon" type="image/x-icon" href="/assets/auction.png" sizes="16x16 32x32">
+
+    <link rel="stylesheet" href="Top G Auctions.css">
+</head>
+<body>
+    <div class="TGA-Add-Products">
+        <div id="alert-overlay" class="alert-overlay">
+            <div id="alert-box" class="alert-box">
+                <h2 id="alert-title" class="alert-title">Alert!</h2>
+                <p class="alert-text" id="alert-text">This is an error message</p>
+                <div class="alert-btns">
+                    <button class="alert-btn email-btn" id="alert-btn">Ok.</button>
+                    <button class="alert-btn email-btn" id="alert-logon-btn">Log in.</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="TGA-Add-Products-header">
+            <h4 class="add-products-title">add product for bid</h4>
+            <div class="add-products profile-con">
+                <div class="profile-details-con">
+                    <h3 id="profile-uname" class="profile-name"></h3>
+                    <h5 id="profile-email" class="profile-email"></h5>
+                </div>
+                <div class="profile-icon-con">
+                    <img src="./assets/profile-icon.png" alt="" class="profile-img">
+                </div>
+            </div>
+        </div>
+
+        <div class="add-products-input-con">
+            <div class="add-products-small-con add-products-category-con">
+                <h4 class="add-products-small-title add-products-category-title">Category:</h4>
+                <input type="text" id="category" class="add-products-small-input add-products-category-input">
+            </div>
+            <div class="add-products-small-con add-products-product-name-con">
+                <h4 class="add-products-small-title add-products-product-name-title">Product name:</h4>
+                <input type="text" id="pname" class="add-products-small-input add-products-product-name-input">
+            </div>
+            <div class="add-products-small-con add-products-description-con">
+                <h4 class="add-products-small-title add-products-description-title">description:</h4>
+                <input type="text" id="description" class="add-products-small-input add-products-description-input">
+            </div>
+            <div class="add-products-small-con add-products-choose-file-img-con">
+                <h4 class="add-products-small-title add-products-choose-file-img-title">choose file img:</h4>
+                <div class="img-file-con">
+                    <div class="img-input-con">
+                        <input type="text" id="img_file" class="add-products-small-input add-products-choose-file-img-input">
+                        <label id="extname" class="extname"></label>
+                    </div>
+                    <div class="img-display-con">
+                        <button class="selbtn btn" id="selbtn">Select Image.</button>
+                        <label id="proglab" class="extname proglab"></label>
+                        <img id="myimg" alt="" class="myimg">
+                    </div>
+                </div>
+            </div>
+            <div class="add-products-small-con add-products-minimum-bid-con">
+                <h4 class="add-products-small-title add-products-minimum-bid-title">minimum bid:</h4>
+                <input type="text" id="min-bid" class="add-products-small-input add-products-minimum-bid-input">
+            </div>
+            <div class="add-products-small-con add-products-bid-deadline-con">
+                <h4 class="add-products-small-title add-products-bid-deadline-title">bid deadline:</h4>
+                <input type="text" id="bid-deadline" class="add-products-small-input add-products-bid-deadline-input">
+            </div>
+            <div class="finish-btn-con">
+                <button class="add-products-submit-btn btn" id="submit-btn" >Submit</button>
+                <button class="add-products-back-btn btn" id="back-btn">Back to Home Page</button>
+            </div>
+           
+        </div>
+    </div>
+    <script type="module" src="TGA_Add-products.js"></script>
+</body>
+</html>
