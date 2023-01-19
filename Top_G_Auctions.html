@@ -7,13 +7,18 @@
     <title>Home Page</title>
 
     <link rel="icon" type="image/x-icon" href="/assets/auction.png" sizes="16x16 32x32">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    
+    
+    <link href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="Top G Auctions.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
- 
 </head>
 <body>
     <div class="Top_G_Auctions">
         <img class="bg2" src="./assets/Andrew-Tate-Poster-Top-G3.jpg" alt="where is your bugatti image background">
+        
         <div id="alert-overlay" class="alert-overlay">
             <div id="alert-box" class="alert-box">
                 <h2 id="alert-title" class="alert-title">Alert!</h2>
@@ -24,6 +29,7 @@
                 </div>
             </div>
         </div>
+
         <div class="TGA-header-container">
             <div class="logo-container">
                 <img src="./assets/auction.png" alt="" class="logo">
@@ -57,6 +63,7 @@
                 </div>
             </div>
         </div>
+
         <div class="TGA-body-container">
             <div id="TGAmenu-container" class="TGAmenu-container">
                 <a href="#" id="add-product-btn" class="TGAmenu-item TGAmenu-item1">Add Product</a>
@@ -72,7 +79,8 @@
                 </div>
                 <a href="#" id="all-products-btn" class="TGAmenu-item TGAmenu-item3">All products</a>
                 <a href="#" id="my-products-btn" class="TGAmenu-item TGAmenu-item3">My products</a>
-                
+                <a href="#" id="lot-bag-btn" class="TGAmenu-item TGAmenu-item2">Lot Bag</a>
+                <a href="#" id="checkout-btn" class="TGAmenu-item TGAmenu-item3">Checkout</a>
                 <a href="#" id="log-out" class="TGAmenu-item TGAmenu-item2">Log out</a>
                 <a href="#" id="log-in" class="TGAmenu-item TGAmenu-item2">Log in</a>
                 <a href="#" id="delete-products-btn" class="TGAmenu-item TGAmenu-item3">Delete requests</a>
@@ -126,12 +134,156 @@
             </div>
             
         </div>
+
+        <div  class="lot-bag-overlay" id="lot-bag-overlay">
+            <div class="lot-bag-card">
+                <div class="lot-bag-header">
+                    <div class="back-icon-con">
+                        <button id="back-lot-bag-btn" class="back-icon-btn">
+                            <img src="./assets/back-icon.png" alt="" class="back-icon-img">
+                        </button>
+                    </div>
+                    <h1 class="payment-title">LOT BAG</h1>
+                </div>
+                <div class="lot-amt-container">
+                    <h3 class="sub-total-title">Sub Total Bid:</h3>
+                    <h4 class="Amt-total" id="Amt-total">$ 0</h4>
+                    <button class="proceed-payment-btn btn" id="proceed-payment-btn">Proceed to checkout</button>
+                </div>
+                <div class="lots-table-container">
+                    <table class="lots-table">
+                        <tbody class="lot-tbody" id="lot-tbody">
+                            <!-- <tr class="lot-row">
+                                <td class="lot-img-con">
+                                    <img class="lot-img" src="assets/Bugatti_Chiron.jpg" alt="lot image">
+                                </td>
+                                <td class="lot-details-con">
+                                    <p class="lot-name">Name: The Bugatti Chiron</p>
+                                    <p class="lot-id">Lot ID: 1</p>
+                                    <p class="lot-amount">$ 3,700,000</p>
+                                    <button class="btn remove-btn">Remove</button>
+                                </td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="payment-overlay" class="payment-overlay">
+            <div class=" container py-5">
+                <!-- For demo purpose -->
+                <!-- <div class="row mb-4">
+                    <div class="col-lg-8 mx-auto text-center">
+                        <h1 class="display-6">TGA Payment</h1>
+                    </div>
+                </div>  -->
+                <!-- End -->
+                <div class="row">
+                    
+                    <div class="col-lg-6 mx-auto">
+                        <div class="card payment-card">
+                            <div class="payment-header">
+                                <div class="back-icon-con">
+                                    <button id="back-payment-btn" class="back-icon-btn">
+                                        <img src="./assets/back-icon.png" alt="" class="back-icon-img">
+                                    </button>
+                                </div>
+                                <h1 class="payment-title">Checkout</h1>
+                            </div>
+                            
+                            <div class="card-header">
+                                
+                                <div class="payment-card bg-white shadow-sm pt-4 pl-2 pr-2 pb-2">
+                                    <!-- Credit card form tabs -->
+                                    <ul role="tablist" class="payment-card nav bg-light nav-pills rounded nav-fill mb-3">
+                                        <li class="nav-item"> <a data-toggle="pill" href="#credit-card" class="nav-link active "> <i class="fas fa-credit-card mr-2"></i> Credit Card </a> </li>
+                                        <li class="nav-item"> <a data-toggle="pill" href="#paypal" class="nav-link "> <i class="fab fa-paypal mr-2"></i> Paypal </a> </li>
+                                        <li class="nav-item"> <a data-toggle="pill" href="#net-banking" class="nav-link "> <i class="fas fa-mobile-alt mr-2"></i> Net Banking </a> </li>
+                                    </ul>
+                                </div> <!-- End -->
+                                <!-- Credit card form content -->
+                                <div class="tab-content payment-card">
+                                    <!-- credit card info-->
+                                    <div id="credit-card" class="tab-pane fade show active pt-3">
+                                        <form role="form" onsubmit="event.preventDefault()">
+                                            <div class="form-group"> <label for="username">
+                                                    <h6>Card Owner</h6>
+                                                </label> <input type="text" name="username" placeholder="Card Owner Name" required class="form-control "> </div>
+                                            <div class="form-group"> <label for="cardNumber">
+                                                    <h6>Card number</h6>
+                                                </label>
+                                                <div class="input-group"> <input type="text" name="cardNumber" placeholder="Valid card number" class="form-control " required>
+                                                    <div class="input-group-append"> <span class="input-group-text text-muted"> <i class="fab fa-cc-visa mx-1"></i> <i class="fab fa-cc-mastercard mx-1"></i> <i class="fab fa-cc-amex mx-1"></i> </span> </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-8">
+                                                    <div class="form-group"> <label><span class="hidden-xs">
+                                                                <h6>Expiration Date</h6>
+                                                            </span></label>
+                                                        <div class="input-group"> <input type="number" placeholder="MM" name="" class="form-control" required> <input type="number" placeholder="YY" name="" class="form-control" required> </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group mb-4"> <label data-toggle="tooltip" title="Three digit CV code on the back of your card">
+                                                            <h6>CVV <i class="fa fa-question-circle d-inline"></i></h6>
+                                                        </label> <input type="text" required class="form-control"> </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer"> <button type="button" class="subscribe btn btn-primary btn-block shadow-sm"> Confirm Payment </button>
+                                        </form>
+                                    </div>
+                                </div> <!-- End -->
+                                <!-- Paypal info -->
+                                <div id="paypal" class="tab-pane fade pt-3">
+                                    <h6 class="pb-2">Select your paypal account type</h6>
+                                    <div class="form-group "> 
+                                        <label class="radio-inline"> <input type="radio" name="optradio" checked class="payment-radio"> Domestic </label> 
+                                        <label class="radio-inline"> <input type="radio" name="optradio" class="ml-5 payment-radio">International </label>
+                                    </div>
+                                    <p> <button type="button" class="btn btn-primary "><i class="fab fa-paypal mr-2"></i> Log into my Paypal</button> </p>
+                                    <p class="text-muted"> Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order. </p>
+                                </div> <!-- End -->
+                                <!-- bank transfer info -->
+                                <div id="net-banking" class="tab-pane fade pt-3">
+                                    <div class="form-group "> <label for="Select Your Bank">
+                                            <h6>Select your Bank</h6>
+                                        </label> <select class="form-control" id="ccmonth">
+                                            <option value="" selected disabled>--Please select your Bank--</option>
+                                            <option>Bank 1</option>
+                                            <option>Bank 2</option>
+                                            <option>Bank 3</option>
+                                            <option>Bank 4</option>
+                                            <option>Bank 5</option>
+                                            <option>Bank 6</option>
+                                            <option>Bank 7</option>
+                                            <option>Bank 8</option>
+                                            <option>Bank 9</option>
+                                            <option>Bank 10</option>
+                                        </select> </div>
+                                    <div class="form-group">
+                                        <p> <button type="button" class="btn btn-primary "><i class="fas fa-mobile-alt mr-2"></i> Proceed Payment</button> </p>
+                                    </div>
+                                    <p class="text-muted">Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order. </p>
+                                </div> <!-- End -->
+                                <!-- End -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
         
     </div>
     
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="Top_G_Auctions.js"></script>
     </body>
 </html>

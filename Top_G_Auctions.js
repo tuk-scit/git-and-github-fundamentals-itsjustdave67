@@ -53,6 +53,16 @@ const all_products_btn = document.getElementById("all-products-btn");
 const tbody = document.getElementById("tbody");
 const no_products_con = document.getElementById("no-products-con");
 const delete_products_btn = document.getElementById("delete-products-btn");
+const back_payment_btn = document.getElementById("back-payment-btn");
+const back_lot_bag_btn = document.getElementById("back-lot-bag-btn");
+const lot_bag_overlay = document.getElementById("lot-bag-overlay");
+const payment_overlay = document.getElementById("payment-overlay");
+const lot_bag_btn = document.getElementById("lot-bag-btn")
+const checkout_btn = document.getElementById("checkout-btn")
+const proceed_payment_btn = document.getElementById("proceed-payment-btn")
+const Amt_total = document.getElementById("Amt-total")
+
+
 var loginEmail;
 var emailValue;
 var signedIn;
@@ -60,6 +70,8 @@ var userStatusVal;
 var adminCheck, Status;
 var initial_trow, follow_up_trow, single_trow;
 var difference;
+var count, biduname, checkUname;
+var valcount, totalbid, actualbid;
 // #endregion exctractions
 
 let title, message, i;
@@ -299,7 +311,6 @@ delete_products_btn.onclick = function () {
     for (var i = 1; i < tableId; i++) {
       get(child(dbref, "TheProducts/" + i))
       .then((snapshot) => {
-              console.log(snapshot.val())
               var p_id = snapshot.val().p_id;
               var category = snapshot.val().category;
               var pname = snapshot.val().name;
@@ -353,6 +364,118 @@ delete_products_btn.onclick = function () {
   });
   reconfigureAfterDelete()
 };
+
+back_payment_btn.onclick = function backPaymentFunction () {
+  payment_overlay.style.display = "none";
+}
+
+back_lot_bag_btn.onclick = function backLotBagFunction () {
+  lot_bag_overlay.style.display = "none";
+}
+
+checkout_btn.onclick = function checkoutFunction () {
+  payment_overlay.style.display = "block"
+}
+
+proceed_payment_btn.onclick = function proceedFunction () {
+  lot_bag_overlay.style.display = "none"
+  payment_overlay.style.display = "block"
+}
+
+lot_bag_btn.onclick = function lotBagFunction () {
+  // loop to check possible in-bids
+  get(child(dbref, "Counter_id")).then((snapshot) => {
+    count = snapshot.val().Counter_id;
+    valcount = 1;
+    var y = 0;
+    totalbid = 0;
+    while ( valcount < count) {
+      get(child(dbref, "Bids/"+valcount)).then((snapshot) => {
+        
+        biduname = snapshot.val().Current_high_name;
+        checkUname = profile_uname.innerHTML;
+        y++;
+        if (biduname == checkUname) {
+          get(child(dbref, "Bids/"+y)).then((snapshot) => {
+            actualbid = snapshot.val().Current_high;
+          });
+          get(child(dbref, "TheProducts/"+y))
+          .then((snapshot) => {
+            var p_id = snapshot.val().p_id;
+            var pname = snapshot.val().name;
+            var image_URL = snapshot.val().image_URL;
+            
+            fillLotBagTable(p_id, pname, image_URL, actualbid)
+            console.log(actualbid)
+            totalbid = totalbid + actualbid;
+            Amt_total.innerHTML ="$ " + totalbid.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+          })
+          
+        }
+      });
+      
+      valcount++;
+    }
+  })
+  lot_bag_overlay.style.display = "block"
+}
+
+function fillLotBagTable (p_id, pname, image_URL, minimum_bid) {
+ var lot_tbody = document.getElementById("lot-tbody")
+ var lot_row = document.createElement("tr");
+ lot_row.className = "lot-row";
+
+ var p0 = document.createElement("p")
+ var p1 = document.createElement("p")
+ var p2 = document.createElement("p")
+ var img1 = document.createElement("img")
+ var btn1 = document.createElement("button")
+
+ p0.innerHTML = "<b>Name: </b>"+pname
+ p1.innerHTML = "<b>Lot ID: </b>"+p_id
+ p2.innerHTML = "<b>Amount: </b>"+minimum_bid
+ img1.src = image_URL
+ btn1.innerHTML = "Remove"
+
+ var td0 = document.createElement("td");
+ var td1 = document.createElement("td");
+
+ td0.appendChild(img1)
+ td1.appendChild(p0)
+ td1.appendChild(p1)
+ td1.appendChild(p2)
+ td1.appendChild(btn1)
+
+ lot_row.appendChild(td0);
+ lot_row.appendChild(td1);
+
+ td0.className = "lot-img-con";
+ td1.className = "lot-details-con";
+ p0.className = "lot-name";
+ p1.className = "lot-id";
+ p2.className = "lot-amount"
+ img1.className = "lot-img" 
+ btn1.className = "btn"
+ btn1.classList.add("remove-btn")
+ 
+
+ lot_tbody.appendChild(lot_row);
+
+ btn1.onclick = function removeItem() {
+  remove(ref(db, "Bids/" + p_id))
+      .then((snapshot) => {
+        title = "Clearing Successfull!";
+        message = "The following item was removed from your lot bag successfully";
+        displayMessage(title, message);
+        window.reload()
+        lot_bag_btn.style.display = "block"
+      })
+      .catch((error) => {
+        displayError(error);
+      });
+ }
+
+}
 // #endregion login,alert and delete eventListeners
 
 // #region products table configuration
@@ -421,7 +544,6 @@ function getProducts() {
     }
   });
 }
-
 function checkIfOwner(uploaded_by_email, loginEmail) {
   if (uploaded_by_email == loginEmail) {
     return true;
@@ -429,7 +551,6 @@ function checkIfOwner(uploaded_by_email, loginEmail) {
     return false;
   }
 }
-
 function fillMyProductsTable(
   p_id,
   category,
@@ -492,20 +613,14 @@ function fillMyProductsTable(
     tbody.appendChild(trow);
     // #endregion tablerow build
 
-    var selected_table_row;
-    const table_rows = document.querySelectorAll(".product-row");
 
-    var elemEventhandler = function viewRowsDescription() {
-      var target = selected_table_row.children[0].children[0].innerHTML;
+   trow.onclick = function viewMyRowsDescription() {
+      var target = trow.children[0].children[0].innerHTML;
       localStorage.setItem("p_id", target);
       window.location.href =
         "http://127.0.0.1:5500/TGA_products_description.html";
     };
 
-    table_rows.forEach((table_row) => {
-      selected_table_row = table_row;
-      selected_table_row.addEventListener("click", elemEventhandler);
-    });
 
     if (check == true) {
       var dlt = document.createElement("a");
@@ -519,7 +634,6 @@ function fillMyProductsTable(
       dlt.onclick = function (event) {
         event.stopPropagation();
         var parentElement = dlt.parentNode.parentNode;
-        parentElement.removeEventListener("click", elemEventhandler);
         var rowChildElement = parentElement.children[0];
         var overlay = document.createElement("div");
         overlay.className = "product-overlay";
@@ -550,7 +664,7 @@ function fillMyProductsTable(
 
     if (delete_status == "true") {
       if (signedIn == true) {
-        var rootElement = selected_table_row.parentNode;
+        var rootElement = trow.parentNode;
         rootElement.children[p_id - 1].children[5].children[1].style.display =
           "none";
         var rowChildElement2 = rootElement.children[p_id - 1];
@@ -577,7 +691,6 @@ function fillMyProductsTable(
     }
   }
 }
-
 function fillTable(
   p_id,
   category,
@@ -639,20 +752,12 @@ function fillTable(
   tbody.appendChild(trow);
   // #endregion tablerow build
 
-  var selected_table_row;
-  const table_rows = document.querySelectorAll(".product-row");
-
-  var elemEventhandler = function viewRowsDescription() {
-    var target = selected_table_row.children[0].children[0].innerHTML;
+  trow.onclick = function viewWholeRowsDescriptio() {
+    var target = trow.children[0].children[0].innerHTML;
     localStorage.setItem("p_id", target);
     window.location.href =
       "http://127.0.0.1:5500/TGA_products_description.html";
-  };
-
-  table_rows.forEach((table_row) => {
-    selected_table_row = table_row;
-    selected_table_row.addEventListener("click", elemEventhandler);
-  });
+  }
 
   if (check == true) {
     var dlt = document.createElement("a");
@@ -696,7 +801,7 @@ function fillTable(
 
   if (delete_status == "true") {
     if (signedIn == true) {
-      var rootElement = selected_table_row.parentNode;
+      var rootElement = trow.parentNode;
 
       var rowChildElement2 = rootElement.children[p_id - 1];
       // rowChildElement2.style.pointerEvents = "none";
@@ -729,7 +834,6 @@ function fillTable(
     no_products_con.style.display = "none";
   }
 }
-
 function fillDeleteProductsTable(
   p_id,
   category,
@@ -791,20 +895,12 @@ function fillDeleteProductsTable(
   tbody.appendChild(trow);
   // #endregion tablerow build
 
-  var selected_table_row;
-  const table_rows = document.querySelectorAll(".product-row");
-
-  var elemEventhandler = function viewRowsDescription() {
-    var target = selected_table_row.children[0].children[0].innerHTML;
+  trow.onclick = function viewDeleteRowsDescription() {
+    var target = trow.children[0].children[0].innerHTML;
     localStorage.setItem("p_id", target);
     window.location.href =
       "http://127.0.0.1:5500/TGA_products_description.html";
   };
-
-  table_rows.forEach((table_row) => {
-    selected_table_row = table_row;
-    selected_table_row.addEventListener("click", elemEventhandler);
-  });
 
   var apr = document.createElement("a");
   apr.className = "delete-btn";
@@ -850,7 +946,6 @@ function fillDeleteProductsTable(
     no_products_con.style.display = "none";
   }
 }
-
 function reconfigureAfterDelete() {
   if (tbody.length == 1) {
     single_trow = parseInt(tbody.children[0].children[0].children[0].innerHTML);
@@ -1010,5 +1105,9 @@ function displayMessage(title, message) {
 
 alert_logon_btn.addEventListener("click", function() {
   window.location.href = "http://127.0.0.1:5500/Login_&_Registration.html";
+});
+
+$(function() {
+  $('[data-toggle="tooltip"]').tooltip()
 })
 // #endregion alert display functions
