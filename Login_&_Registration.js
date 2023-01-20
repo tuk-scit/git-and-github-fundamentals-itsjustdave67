@@ -7,11 +7,7 @@ import {
 import { 
   getDatabase, 
   ref, 
-  set,
-  get, 
-  child, 
-  update, 
-  remove
+  set
 } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-database.js"
 // let initializeApp = require("https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js");
 // let getAuth = require("https://www.gstatic.com/firebasejs/9.13.0/firebase-auth.js");
@@ -56,9 +52,8 @@ const back_icon_btn =  document.getElementById("back-icon-btn");
 
 Register_btn.addEventListener("click", function() {
     document.documentElement.style.setProperty('--ff-maintitle', 'Bahianita');
-    LRmain_title_con.style.left = "110px";
-    LRmain_title_con.style.right = "110px";
-    LRmain_title_con.style.top = "0px";
+    LRmain_title_con.style.display = 'none';
+   
     LRsub_title_con.style.display = "none";
     proceed_btn_con.style.display = "none";
     Login_btn.style.display = "none";
@@ -68,7 +63,7 @@ Register_btn.addEventListener("click", function() {
 
 Login_btn.addEventListener("click", function() {
     document.documentElement.style.setProperty('--ff-maintitle', 'Bahianita');
-    LRmain_title_con.style.marginBottom = "25px";
+    LRmain_title_con.style.display = "none";
     LRsub_title_con.style.display = "none";
     proceed_btn_con.style.display = "none";
     Register_btn.style.display = "none";
@@ -200,7 +195,6 @@ if (uname.length||reg_email.length||reg_pwd.length||reg_cpwd.length < 8){
   document.getElementById("error-con").style.display = "inline";
   document.getElementById("pwd-error").innerHTML = "One of the entries is too short!";
 }
-
 if (reg_cpwd.value !== reg_pwd.value) {
   document.getElementById("error-con").style.display = "inline";
 }

@@ -109,12 +109,12 @@ onAuthStateChanged(auth, function (user) {
     message = "No user is logged in. Kindly login to access Top G Auctions Full features";
     displayMessage(title, message);
     loginEmail = "noemail@gmail.com";
-    checkIfAdmin(loginEmail);
-    if (Status == true) {
-      delete_products_btn.style.display = "block";
-    } else {
-      delete_products_btn.style.display = "none";
-    }
+    // checkIfAdmin(loginEmail);
+    // if (Status == true) {
+    //   delete_products_btn.style.display = "block";
+    // } else {
+    //   delete_products_btn.style.display = "none";
+    // }
     signedIn = false;
     getUserInfo(signedIn);
   }
