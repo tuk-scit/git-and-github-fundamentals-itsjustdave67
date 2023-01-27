@@ -1,0 +1,116 @@
+title Top G auctions
+actor user
+actor admin
+participant Inventory
+
+participant Firebase authentication server
+participant lotbag/checkout
+participant firebase database
+participant Bank/Paypal
+user->Inventory:proceed 
+
+
+Inventory->firebase database:catalogue request
+
+user->Inventory:registration request
+user<-Inventory:return registration form
+user->Inventory:submit registration credentials
+alt case existing
+Firebase authentication server->Inventory:wrong credentials
+user<-Inventory:output user existance error
+else case non-existant
+
+Firebase authentication server->Inventory:right credentials
+Inventory->Firebase authentication server:create user credentials
+Inventory<-Firebase authentication server:user creation result
+Inventory->firebase database:store user's credentials
+Inventory<-firebase database:credentials storage result
+user<-Inventory:output successful registration
+end
+user->Inventory:login request
+user<-Inventory:return login form
+user->Inventory:submit login credentials\n
+Inventory->Firebase authentication server:authentication request\n
+alt case false result
+Firebase authentication server->Inventory:false credentials result
+user<-Inventory:output login error
+else case true result
+Firebase authentication server->Inventory:true credentials result
+user<-Inventory:output successful login
+Inventory->firebase database:catalogue request
+end
+
+
+Inventory<-firebase database:return catalogue
+user->Inventory:add product request
+user<-Inventory:return add products form
+user->Inventory:submit product details
+alt true
+Inventory->Inventory:input correct
+Inventory->firebase database:upload products
+Inventory<-firebase database:upload request result
+user<-Inventory:output upload request result
+
+else false
+Inventory->Inventory:input wrong
+user<-Inventory:output input error
+end
+user->Inventory:delete request
+Inventory->firebase database:update lot delete status
+Inventory<-firebase database:return updated catalogue
+user<-Inventory:output updated catalogue
+admin->Inventory:delete requests catalogue request
+Inventory->firebase database:delete requests catalogue request
+Inventory<-firebase database:return delete requests catalogue
+admin<-Inventory:output delete requests catalogue
+admin->Inventory:approve delete request
+Inventory->firebase database:remove item
+Inventory<-firebase database:return removal result
+admin<-Inventory:output removal result
+user<-Inventory:output updated catalogue
+user->Inventory:view product
+Inventory->firebase database:get full product details
+firebase database->Inventory:return products details and owner name
+Inventory->Inventory:check owner
+alt true
+user<-Inventory:output product details and bid form\n
+else false
+user<-Inventory:output product details only
+end
+
+
+user->Inventory:submit bid
+Inventory->firebase database:check current high bid
+alt if current bid < placed bid
+firebase database->firebase database:update bid info\n
+Inventory<-firebase database:return current high bid
+user<-Inventory:output successful bid placement
+else if current bid> placed bid
+Inventory<-firebase database:return current high bid
+user<-Inventory:output lower bid placement error
+end
+
+
+
+
+user->lotbag/checkout:lot bag request
+lotbag/checkout->firebase database:get user's bids
+lotbag/checkout<-firebase database:return user's bids
+lotbag/checkout->lotbag/checkout:calculate subtotal bid
+user<-lotbag/checkout:output bids and subtotal bid
+lotbag/checkout->lotbag/checkout:proceed to checkout
+user->lotbag/checkout:checkout request
+user<-lotbag/checkout:return checkout form
+user->lotbag/checkout:payment choice request
+user<-lotbag/checkout:return payment type form
+user->lotbag/checkout:submit payment credentials
+lotbag/checkout->Bank/Paypal:payment transaction
+lotbag/checkout<-Bank/Paypal:return transcation result
+user<-lotbag/checkout:output transaction result
+
+
+
+user->Inventory:logout request
+Inventory->Inventory:signout user
+
+user<-Inventory:confirm signout
